@@ -1,0 +1,13 @@
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\Test_Roguelike.exe.config
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\Test_Roguelike.exe
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\Test_Roguelike.pdb
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\OpenTK.dll
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\RLNET.dll
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\RogueSharp.dll
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\OpenTK.xml
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\bin\Debug\OpenTK.dll.config
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csprojAssemblyReference.cache
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csproj.CoreCompileInputs.cache
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csproj.CopyComplete
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.exe
+E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.pdb
