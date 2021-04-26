@@ -41,7 +41,7 @@ namespace Test_Roguelike.Core
                 }
                 else
                 {
-                    console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, '#');
+                    console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, 'T');
                 }
             }
             // When a cell is outside of the field of view draw it with darker colors
@@ -52,8 +52,8 @@ namespace Test_Roguelike.Core
                     console.Set(cell.X, cell.Y, Colors.Floor, Colors.FloorBackground, '.');
                 }
                 else
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, '#');
+                { 
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, 'T');
                 }
             }
         }

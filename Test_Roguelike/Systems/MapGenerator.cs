@@ -35,7 +35,7 @@ namespace Test_Roguelike.Systems
                 _map.SetCellProperties(cell.X, cell.Y, true, true, true);
             }
 
-            // Set the first and last rows in the map to not be transparent or walkable
+            // Set the first and last rows in the map to not be transp
             foreach (Cell cell in _map.GetCellsInRows(0, _height - 1))
             {
                 _map.SetCellProperties(cell.X, cell.Y, false, false, true);
@@ -50,4 +50,5 @@ namespace Test_Roguelike.Systems
             return _map;
         }
     }
+
 }
