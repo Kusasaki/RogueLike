@@ -30,7 +30,7 @@ namespace Test_Roguelike.Core
                 return;
             }
 
-            // When a cell is currently in the field-of-view it should be drawn with ligher colors
+            // Map niveau
             if (IsInFov(cell.X, cell.Y))
             {
                 // Choose the symbol to draw based on if the cell is walkable or not
@@ -41,7 +41,7 @@ namespace Test_Roguelike.Core
                 }
                 else
                 {
-                    console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, 'T');
+                    console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, '~');
                 }
             }
             // When a cell is outside of the field of view draw it with darker colors
@@ -49,11 +49,19 @@ namespace Test_Roguelike.Core
             {
                 if (cell.IsWalkable)
                 {
-                    console.Set(cell.X, cell.Y, Colors.Floor, Colors.FloorBackground, '.');
+                    console.Set(cell.X, cell.Y, Colors.Floor, Colors.Floor, '.');
                 }
                 else
                 { 
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, 'T');
+                    console.Set(cell.X, cell.Y, RLColor.Cyan, Colors.WallBackground, '~');
+                }
+                if ((!cell.IsWalkable) && (((cell.X == 6)&&(cell.Y>6)&&(cell.Y<Height-7))||((cell.Y==6)&&(cell.X>5)&&(cell.X<Width-7))))
+                {
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
+                }
+                if ((!cell.IsWalkable) && (((cell.X == Width-7) && (cell.Y >5) && (cell.Y < Height - 7)) || ((cell.Y == Height-7) && (cell.X >5) && (cell.X < Width - 6))))
+                {
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
                 }
             }
         }

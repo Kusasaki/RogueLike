@@ -35,16 +35,37 @@ namespace Test_Roguelike.Systems
                 _map.SetCellProperties(cell.X, cell.Y, true, true, true);
             }
 
-            // Set the first and last rows in the map to not be transp
-            foreach (Cell cell in _map.GetCellsInRows(0, _height - 1))
+            //mer en haut
+            for (int i=0; i < 7; i++)
             {
-                _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                foreach (Cell cell in _map.GetCellsInRows(i, _height - 1))
+                {
+                    _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                }
             }
-
-            // Set the first and last columns in the map to not be transparent or walkable
-            foreach (Cell cell in _map.GetCellsInColumns(0, _width - 1))
+            //mer en bas
+            for (int i = _height - 7; i < _height - 1; i++)
             {
-                _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                foreach (Cell cell in _map.GetCellsInRows(i, _height - 1))
+                {
+                    _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                }
+            }
+            //mer à gauche
+            for (int i = 0; i < 7; i++)
+            {
+                foreach (Cell cell in _map.GetCellsInColumns(i, _width - 1))
+                {
+                    _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                }
+            }
+            //mer à droite
+            for (int i = _width - 7; i < _width - 1; i++)
+            {
+                foreach (Cell cell in _map.GetCellsInColumns(i, _width - 1))
+                {
+                    _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                }
             }
 
             return _map;
