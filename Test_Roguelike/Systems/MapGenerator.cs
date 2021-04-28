@@ -35,8 +35,82 @@ namespace Test_Roguelike.Systems
                 _map.SetCellProperties(cell.X, cell.Y, true, true, true);
             }
 
+            
+            //construction du niveau : murs
+            for (int i = 0; i < _width - 1; i = i + 40)
+            {
+                foreach (Cell cell in _map.GetCellsInColumns(i, _width - 1))
+                {
+                    _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+                }
+            }
+            foreach (Cell cell in _map.GetCellsInRows(20,_height-1))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+            }
+            foreach (Cell cell in _map.GetCellsInRows(30, _height - 1))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+            }
+            foreach (Cell cell in _map.GetCellsInRows(40, _height - 1))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+            }
+            //construction du niveau : portes à factoriser
+            foreach (Cell cell in _map.GetCellsInColumns(22))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(23))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(24))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(59))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(60))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(61))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(97))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(98))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInColumns(99))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInSquare(40,35,4))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInSquare(80, 35, 4))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetCellsInSquare(60, 40, 19))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, true, true, true);
+            }
+            foreach (Cell cell in _map.GetBorderCellsInSquare(60, 35, 4))
+            {
+                _map.SetCellProperties(cell.X, cell.Y, false, false, true);
+            }
             //mer en haut
-            for (int i=0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 foreach (Cell cell in _map.GetCellsInRows(i, _height - 1))
                 {

@@ -19,6 +19,14 @@ namespace Test_Roguelike.Core
         public static RLColor WallBackgroundFov = Swatch.ComplementLighter;
         public static RLColor WallFov = Swatch.ComplementLightest;
 
+        public static RLColor Door = RLColor.White;
+        public static RLColor DoorBackground = Swatch.ComplementDarker;
+        public static RLColor DoorBackgroundFov = Swatch.AlternateLighter;
+        public static RLColor DoorFov = Swatch.AlternateLightest;
+
+        public static RLColor Text = RLColor.White;
         public static RLColor TextHeading = RLColor.White;
+
+        public static RLColor Player = RLColor.LightCyan;
     }
 }

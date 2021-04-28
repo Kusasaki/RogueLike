@@ -21,16 +21,18 @@ namespace Test_Roguelike.Core
         public static RLColor SecondaryDarker = new RLColor(8, 12, 86);
         public static RLColor SecondaryDarkest = new RLColor(2, 5, 58);
 
-        public static RLColor AlternateLightest = new RLColor(255, 224, 136);
-        public static RLColor AlternateLighter = new RLColor(249, 198, 52);
+        public static RLColor AlternateLightest = new RLColor(170, 57, 57);
+        public static RLColor AlternateLighter = new RLColor(170, 57, 57);
         public static RLColor Alternate = new RLColor(191, 142, 4);
         public static RLColor AlternateDarker = new RLColor(124, 92, 0);
         public static RLColor AlternateDarkest = new RLColor(83, 61, 0);
 
         public static RLColor ComplementLightest = new RLColor(255, 202, 136);
-        public static RLColor ComplementLighter = new RLColor(249, 162, 52);
+        public static RLColor ComplementLighter = new RLColor(170, 57, 57);
         public static RLColor Complement = new RLColor(191, 108, 4);
         public static RLColor ComplementDarker = new RLColor(124, 69, 0);
         public static RLColor ComplementDarkest = new RLColor(83, 46, 0);
+
+        public static RLColor DbLight = new RLColor(83, 46, 0);
     }
 }
