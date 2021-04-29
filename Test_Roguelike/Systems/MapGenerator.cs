@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RLNET;
 using RogueSharp;
 using Test_Roguelike.Core;
+using Test_Roguelike.Core.Monsters;
 
 namespace Test_Roguelike.Systems
 {
@@ -143,6 +144,34 @@ namespace Test_Roguelike.Systems
             }
 
             return _map;
+        }
+        private void PlaceMonsters()
+        {
+            foreach (Cell cell in _map.GetAllCells())
+            {
+                Random rnd = new Random();
+                int r = rnd.Next(1, 10);
+                if (r < 7)
+                {
+                    // Generate between 1 and 4 monsters
+                    var numberOfMonsters = r;
+                    for (int i = 0; i < numberOfMonsters; i++)
+                    {
+                        // Find a random walkable location in the room to place the monster
+                        Point randomRoomLocation = _map.GetRandomWalkableLocationInRoom(room);
+                        // It's possible that the room doesn't have space to place a monster
+                        // In that case skip creating the monster
+                        if (randomRoomLocation != null)
+                        {
+                            // Temporarily hard code this monster to be created at level 1
+                            var monster = Ghost.Create(1);
+                            monster.X = randomRoomLocation.X;
+                            monster.Y = randomRoomLocation.Y;
+                            _map.AddMonster(monster);
+                        }
+                    }
+                }
+            }
         }
     }
 

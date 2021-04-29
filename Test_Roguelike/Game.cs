@@ -47,7 +47,7 @@ namespace Test_Roguelike
         public static CommandSystem CommandSystem { get; private set; }
 
         public static MessageLog MessageLog { get; private set; }
-        
+        public static object Random { get; internal set; }
 
         public static void Main()
         {

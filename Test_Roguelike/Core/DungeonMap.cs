@@ -11,10 +11,12 @@ namespace Test_Roguelike.Core
     // Our custom DungeonMap class extends the base RogueSharp Map class
     public class DungeonMap : Map
     {
+        private List<Monster> _monsters;
         public List<Door> Doors { get; set; }
 
         public DungeonMap()
         {
+            _monsters = new List<Monster>();
             Doors = new List<Door>();
         }
 
@@ -30,6 +32,11 @@ namespace Test_Roguelike.Core
             foreach (Door door in Doors)
             {
                 door.Draw(mapConsole, this);
+            }
+            // Iterate through each monster on the map and draw it after drawing the Cells
+            foreach (Monster monster in _monsters)
+            {
+                monster.Draw(mapConsole, this);
             }
         }
 
@@ -148,6 +155,57 @@ namespace Test_Roguelike.Core
 
                 Game.MessageLog.Add($"{actor.Name} opened a door");
             }
+        }
+        public void AddMonster(Monster monster)
+        {
+            _monsters.Add(monster);
+            // After adding the monster to the map make sure to make the cell not walkable
+            SetIsWalkable(monster.X, monster.Y, false);
+        }
+
+        // Look for a random location in the room that is walkable.
+        public Point GetRandomWalkableLocationInRoom(Rectangle room)
+        {
+            if (DoesRoomHaveWalkableSpace(room))
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    Random rnd = new Random();
+                    int x = rnd.Next(1, room.Width - 2) + room.X;
+                    int y = rnd.Next(1, room.Height - 2) + room.Y;
+                    if (IsWalkable(x, y))
+                    {
+                        return new Point(x, y);
+                    }
+                }
+                for (int i = 0; i < Width; i++)
+                {
+                    for (int j = 0; j < Height; j++)
+                    {
+                        if (IsWalkable(i, j))
+                        {
+                            return new Point(i, j);
+                        }
+                    }
+                }
+            }
+            return new Point(0, 0);
+        }
+
+        // Iterate through each Cell in the room and return true if any are walkable
+        public bool DoesRoomHaveWalkableSpace(Rectangle room)
+        {
+            for (int x = 1; x <= room.Width - 2; x++)
+            {
+                for (int y = 1; y <= room.Height - 2; y++)
+                {
+                    if (IsWalkable(x + room.X, y + room.Y))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
