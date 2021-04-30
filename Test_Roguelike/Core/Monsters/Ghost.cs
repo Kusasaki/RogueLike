@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RLNET;
 using RogueSharp;
+using RLNET;
+using Test_Roguelike.Interfaces;
 
 namespace Test_Roguelike.Core.Monsters
 {
@@ -21,7 +22,7 @@ namespace Test_Roguelike.Core.Monsters
             ghost.Resistance = 0;
             ghost.Agility = 5;
             ghost.Awareness = 20;
-
+            ghost.Symbol = 'G';
             return ghost;
         }
     }

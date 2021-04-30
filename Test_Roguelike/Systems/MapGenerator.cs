@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RLNET;
 using RogueSharp;
+using RogueSharp.DiceNotation;
 using Test_Roguelike.Core;
 using Test_Roguelike.Core.Monsters;
 
@@ -86,7 +87,7 @@ namespace Test_Roguelike.Systems
                 CreateRoom(room);
                 CreateDoors(room);
             }
-
+            PlaceMonsters();
             return _map;
         }
 
@@ -129,16 +130,15 @@ namespace Test_Roguelike.Systems
         }
 
 
-        /*private void PlaceMonsters()
+        private void PlaceMonsters()
         {
-            foreach (Cell cell in _map.GetAllCells())
+            foreach (var room in _map.Rooms)
             {
-                Random rnd = new Random();
-                int r = rnd.Next(1, 10);
-                if (r < 7)
+                // Each room has a 60% chance of having monsters
+                if (Dice.Roll("1D10") < 7)
                 {
                     // Generate between 1 and 4 monsters
-                    var numberOfMonsters = r;
+                    var numberOfMonsters = Dice.Roll("1D4");
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         // Find a random walkable location in the room to place the monster
@@ -148,7 +148,7 @@ namespace Test_Roguelike.Systems
                         if (randomRoomLocation != null)
                         {
                             // Temporarily hard code this monster to be created at level 1
-                            var monster = Ghost.Create(1);
+                            var monster = Ghost.Create();
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
                             _map.AddMonster(monster);
@@ -156,7 +156,7 @@ namespace Test_Roguelike.Systems
                     }
                 }
             }
-        }*/
+        }
     }
 
 }
