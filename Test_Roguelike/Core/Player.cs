@@ -22,12 +22,12 @@ namespace Test_Roguelike.Core
             Name = "Rogue";
             Color = Colors.Player;
             Symbol = 'O';
-            X = 60;
-            Y = 50;
+            X = 10;
+            Y = 10;
         }
         public void DrawStats(RLConsole statConsole)
         {
-            statConsole.Print(1, 1, $"Nom:    {Name}", Colors.Text);
+            statConsole.Print(1, 1, $"Nom:    {Name}       X:  {X}   Y:   {Y}", Colors.Text);
             statConsole.Print(1, 2, $"Points de vie:  {Health}/{MaxHealth}", Colors.Text);
             statConsole.Print(1, 3, $"Attaque physique:  {PAttack}", Colors.Text);
             statConsole.Print(1, 4, $"Defense: {Defense}", Colors.Text);

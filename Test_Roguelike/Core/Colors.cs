@@ -30,5 +30,7 @@ namespace Test_Roguelike.Core
         public static RLColor Player = RLColor.LightCyan;
 
         public static RLColor GhostColor = RLColor.White;
+
+
     }
 }

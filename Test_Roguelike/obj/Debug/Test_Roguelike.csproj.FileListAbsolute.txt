@@ -11,3 +11,16 @@ E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguel
 E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csproj.CopyComplete
 E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.exe
 E:\ENSC\1A\programmation avancée\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.pdb
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csprojAssemblyReference.cache
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csproj.CoreCompileInputs.cache
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.exe
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.pdb
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\Test_Roguelike.exe.config
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\Test_Roguelike.exe
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\Test_Roguelike.pdb
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\OpenTK.dll
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\RLNET.dll
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\RogueSharp.dll
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\OpenTK.xml
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Debug\OpenTK.dll.config
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Debug\Test_Roguelike.csproj.CopyComplete

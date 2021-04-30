@@ -11,11 +11,14 @@ namespace Test_Roguelike.Core
     // Our custom DungeonMap class extends the base RogueSharp Map class
     public class DungeonMap : Map
     {
+        public List<Rectangle> Rooms;
+
         private List<Monster> _monsters;
         public List<Door> Doors { get; set; }
 
         public DungeonMap()
         {
+            Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
             Doors = new List<Door>();
         }
@@ -69,22 +72,23 @@ namespace Test_Roguelike.Core
                 {
                     console.Set(cell.X, cell.Y, Colors.Floor, Colors.Floor, '.');
                 }
+                else if ((!cell.IsWalkable) && (((cell.X == 6) && (cell.Y > 6) && (cell.Y < Height - 7)) || ((cell.Y == 6) && (cell.X > 5) && (cell.X < Width - 7))))
+                {
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
+                }
+                else if ((!cell.IsWalkable) && (((cell.X == Width - 7) && (cell.Y > 5) && (cell.Y < Height - 7)) || ((cell.Y == Height - 7) && (cell.X > 5) && (cell.X < Width - 6))))
+                {
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
+                }
+                else if ((!cell.IsWalkable) && (cell.X < Width - 7) && (cell.X > 6) && (cell.Y < Height - 7) && (cell.Y > 5))
+                {
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
+                }
                 else
                 { 
                     console.Set(cell.X, cell.Y, RLColor.Cyan, Colors.WallBackground, '~');
                 }
-                if ((!cell.IsWalkable) && (((cell.X == 6)&&(cell.Y>6)&&(cell.Y<Height-7))||((cell.Y==6)&&(cell.X>5)&&(cell.X<Width-7))))
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
-                }
-                if ((!cell.IsWalkable) && (((cell.X == Width-7) && (cell.Y >5) && (cell.Y < Height - 7)) || ((cell.Y == Height-7) && (cell.X >5) && (cell.X < Width - 6))))
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
-                }
-                if ((!cell.IsWalkable)&&(cell.X< Width - 7)&&(cell.X> 6)&&(cell.Y< Height - 7)&&(cell.Y>5))
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
-                }
+                
             }
         }
 
