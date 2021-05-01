@@ -151,7 +151,7 @@ namespace Test_Roguelike.Core
             else
             {
                 // When not in field-of-view just draw a normal floor
-                console.Set(X, Y, Colors.Floor, Colors.FloorBackground, '.');
+                console.Set(X, Y, Colors.Floor, Colors.Floor, ' ');
             }
         }
     }

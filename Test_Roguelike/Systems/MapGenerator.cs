@@ -16,8 +16,7 @@ namespace Test_Roguelike.Systems
         private readonly int _width;
         private readonly int _height;
         private readonly List<int[]> coordinates;
-        private readonly List<int> doorsX;
-        private readonly List<int> doorsY;
+        private readonly List<int[]> doors;
 
         private readonly DungeonMap _map;
 
@@ -44,11 +43,19 @@ namespace Test_Roguelike.Systems
             coordinates.Add(new int[4] { 34, 12, 80, 40 });
 
 
-            doorsX = new List<int>();
-            doorsY = new List<int>();
-            doorsX.Add(14); doorsY.Add(20);
-            doorsX.Add(14); doorsY.Add(30);
-            doorsX.Add(14); doorsY.Add(40);
+            doors = new List<int[]>();
+
+            doors.Add(new int[2] { 14, 20 });
+            doors.Add(new int[2] { 14, 30 });
+            doors.Add(new int[2] { 14, 40 });
+            doors.Add(new int[2] { 40, 35 });
+
+            doors.Add(new int[2] { 60, 20 });
+
+            doors.Add(new int[2] { 94, 20 });
+            doors.Add(new int[2] { 94, 30 });
+            doors.Add(new int[2] { 94, 40 });
+            doors.Add(new int[2] { 80, 35 });
         }
 
         // Generate a new map that places rooms randomly
@@ -102,7 +109,8 @@ namespace Test_Roguelike.Systems
             // Go through each of the rooms border cells and look for locations to place doors.
             foreach (Cell cell in _map.GetAllCells())
             {
-                if (doorsX.Contains(cell.X) && doorsY.Contains(cell.Y) && _map.GetDoor(cell.X, cell.Y) == null)
+                int[] tabTest = new int[2] { cell.X, cell.Y };
+                if (doors.Any(s => s.SequenceEqual(tabTest)) && _map.GetDoor(cell.X, cell.Y) == null)
                 {
                     // A door must block field-of-view when it is closed.
                     _map.SetCellProperties(cell.X, cell.Y, false, true);
@@ -134,8 +142,8 @@ namespace Test_Roguelike.Systems
         {
             foreach (var room in _map.Rooms)
             {
-                // Each room has a 60% chance of having monsters
-                if (Dice.Roll("1D10") < 7)
+                // Each room has a 70% chance of having monsters
+                if (Dice.Roll("1D10") < 8)
                 {
                     // Generate between 1 and 4 monsters
                     var numberOfMonsters = Dice.Roll("1D4");

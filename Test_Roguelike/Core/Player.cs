@@ -27,7 +27,7 @@ namespace Test_Roguelike.Core
         }
         public void DrawStats(RLConsole statConsole)
         {
-            statConsole.Print(1, 1, $"Nom:    {Name}       X:  {X}   Y:   {Y}", Colors.Text);
+            statConsole.Print(1, 1, $"Nom:    {Name}       X:  {X}   Y:  {Y}", Colors.Text);
             statConsole.Print(1, 2, $"Points de vie:  {Health}/{MaxHealth}", Colors.Text);
             statConsole.Print(1, 3, $"Attaque physique:  {PAttack}", Colors.Text);
             statConsole.Print(1, 4, $"Defense: {Defense}", Colors.Text);

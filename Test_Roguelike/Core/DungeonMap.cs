@@ -25,7 +25,7 @@ namespace Test_Roguelike.Core
 
         // The Draw method will be called each time the map is updated
         // It will render all of the symbols/colors for each cell to the map sub console
-        public void Draw(RLConsole mapConsole)
+        public void Draw(RLConsole mapConsole, RLConsole statConsole)
         {
             mapConsole.Clear();
             foreach (Cell cell in GetAllCells())
@@ -36,10 +36,20 @@ namespace Test_Roguelike.Core
             {
                 door.Draw(mapConsole, this);
             }
+            // Keep an index so we know which position to draw monster stats at
+            int i = 0;
+
             // Iterate through each monster on the map and draw it after drawing the Cells
             foreach (Monster monster in _monsters)
             {
                 monster.Draw(mapConsole, this);
+                // When the monster is in the field-of-view also draw their stats
+                if (IsInFov(monster.X, monster.Y))
+                {
+                    // Pass in the index to DrawStats and increment it afterwards
+                    monster.DrawStats(statConsole, i);
+                    i++;
+                }
             }
         }
 
@@ -72,22 +82,11 @@ namespace Test_Roguelike.Core
                 {
                     console.Set(cell.X, cell.Y, Colors.Floor, Colors.Floor, '.');
                 }
-                else if ((!cell.IsWalkable) && (((cell.X == 6) && (cell.Y > 6) && (cell.Y < Height - 7)) || ((cell.Y == 6) && (cell.X > 5) && (cell.X < Width - 7))))
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
-                }
-                else if ((!cell.IsWalkable) && (((cell.X == Width - 7) && (cell.Y > 5) && (cell.Y < Height - 7)) || ((cell.Y == Height - 7) && (cell.X > 5) && (cell.X < Width - 6))))
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
-                }
-                else if ((!cell.IsWalkable) && (cell.X < Width - 7) && (cell.X > 6) && (cell.Y < Height - 7) && (cell.Y > 5))
-                {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
-                }
                 else
-                { 
-                    console.Set(cell.X, cell.Y, RLColor.Cyan, Colors.WallBackground, '~');
+                {
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
                 }
+                
                 
             }
         }
@@ -174,26 +173,17 @@ namespace Test_Roguelike.Core
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    Random rnd = new Random();
-                    int x = rnd.Next(1, room.Width - 2) + room.X;
-                    int y = rnd.Next(1, room.Height - 2) + room.Y;
+                    int x = Game.Random.Next(1, room.Width - 2) + room.X;
+                    int y = Game.Random.Next(1, room.Height - 2) + room.Y;
                     if (IsWalkable(x, y))
                     {
                         return new Point(x, y);
                     }
                 }
-                for (int i = 0; i < Width; i++)
-                {
-                    for (int j = 0; j < Height; j++)
-                    {
-                        if (IsWalkable(i, j))
-                        {
-                            return new Point(i, j);
-                        }
-                    }
-                }
             }
-            return new Point(0, 0);
+
+            // If we didn't find a walkable location in the room return null
+            return new Point(0,0);
         }
 
         // Iterate through each Cell in the room and return true if any are walkable
