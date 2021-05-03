@@ -7,6 +7,7 @@ using RLNET;
 using RogueSharp;
 using RogueSharp.DiceNotation;
 using Test_Roguelike.Core;
+using Test_Roguelike.Core.Items;
 using Test_Roguelike.Core.Monsters;
 
 namespace Test_Roguelike.Systems
@@ -31,13 +32,14 @@ namespace Test_Roguelike.Systems
             _level = mapLevel;
             _map = new DungeonMap();
             coordinates = new List<int[]>();
-            
+
+            coordinates.Add(new int[4] { 40, 14, 40, 6 });
+
             coordinates.Add(new int[4] { 34, 14, 6, 6 });
             coordinates.Add(new int[4] { 34, 10, 6, 20 });
             coordinates.Add(new int[4] { 34, 10, 6, 30 });
             coordinates.Add(new int[4] { 34, 12, 6, 40 });
 
-            coordinates.Add(new int[4] { 40, 14, 40, 6 });
             coordinates.Add(new int[4] { 40, 32, 40, 20 });
 
             coordinates.Add(new int[4] { 34, 14, 80, 6 });
@@ -47,7 +49,7 @@ namespace Test_Roguelike.Systems
 
 
             doors = new List<int[]>();
-
+            
             doors.Add(new int[2] { 14, 20 });
             doors.Add(new int[2] { 14, 30 });
             doors.Add(new int[2] { 14, 40 });
@@ -97,6 +99,10 @@ namespace Test_Roguelike.Systems
                 CreateRoom(room);
                 CreateDoors(room);
             }
+            var key = new Key(_level);
+            key.X = 8;
+            key.Y = 8;
+            _map.Items.Add(key);
             CreateStairs();
             PlacePlayer();
             PlaceMonsters();
@@ -161,15 +167,15 @@ namespace Test_Roguelike.Systems
         {
             _map.StairsUp = new Stairs
             {
-                X = _map.Rooms.First().Center.X + 1,
+                X = _map.Rooms.First().Center.X - 1,
                 Y = _map.Rooms.First().Center.Y,
                 IsUp = true
             };
             if(_level < _maxlevel)
             _map.StairsDown = new Stairs
             {
-                X = _map.Rooms.Last().Center.X,
-                Y = _map.Rooms.Last().Center.Y,
+                X = _map.Rooms.First().Center.X + 1,
+                Y = _map.Rooms.First().Center.Y,
                 IsUp = false
             };
         }

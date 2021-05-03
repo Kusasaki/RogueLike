@@ -7,6 +7,7 @@ using RogueSharp;
 using RogueSharp.DiceNotation;
 using RLNET;
 using Test_Roguelike.Core;
+using Test_Roguelike.Core.Items;
 using Test_Roguelike.Interfaces;
 
 namespace Test_Roguelike.Systems
@@ -90,10 +91,30 @@ namespace Test_Roguelike.Systems
                     }
             }
 
+            Item item = Game.DungeonMap.GetItemAt(x, y);
+            if (item != null)
+            {
+                //Inventory
+                if(item is Weapon weapon)
+                {
+                    Game.Player.Weapon = weapon;
+                }
+                else if(item is Potion potion)
+                {
+                    Game.Player.Consume(potion);
+                }
+                else
+                {
+                    Game.Player.Inventory.Add(item);
+                }
+                Game.DungeonMap.RemoveItem(item);
+                Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
+                return true;
+            }
+
             if (Game.DungeonMap.SetActorPosition(Game.Player, x, y))
             {
                 return true;
-
             }
             Monster monster = Game.DungeonMap.GetMonsterAt(x, y);
 

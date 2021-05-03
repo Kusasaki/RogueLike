@@ -39,7 +39,7 @@ namespace Test_Roguelike
         private static RLConsole _inventoryConsole;
         
         public static DungeonMap DungeonMap { get; private set; }
-        private static int _mapLevel = 1;
+        public static int _mapLevel = 1;
 
         public static Player Player { get; set; }
 
@@ -48,19 +48,20 @@ namespace Test_Roguelike
         public static CommandSystem CommandSystem { get; private set; }
 
         public static MessageLog MessageLog { get; private set; }
+        public static InventoryLog InventoryLog { get; private set; }
+
         public static IRandom Random { get; private set; }
 
         public static SchedulingSystem SchedulingSystem { get; private set; }
 
         public static void Main()
         {
-            // Establish the seed for the random number generator from the current time
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
 
             // The title will appear at the top of the console window 
             // also include the seed used to generate the level
-            string consoleTitle = $"RougeSharp V3 Tutorial - Level 1 - Seed {seed}";
+            string consoleTitle = $"RoguePépéMémé - Level 1 ";
 
             // This must be the exact name of the bitmap font file we are using or it will error.
             string fontFileName = "terminal8x8.png";
@@ -78,7 +79,8 @@ namespace Test_Roguelike
             // Create a new MessageLog and print the random seed used to generate the level
             MessageLog = new MessageLog();
             MessageLog.Add("The rogue arrives on level 1");
-            MessageLog.Add($"Level created with seed");
+
+            InventoryLog = new InventoryLog();
 
             SchedulingSystem = new SchedulingSystem();
 
@@ -149,7 +151,7 @@ namespace Test_Roguelike
                             DungeonMap = mapGenerator.CreateMap();
                             MessageLog = new MessageLog();
                             CommandSystem = new CommandSystem();
-                            _rootConsole.Title = $"RougeSharp RLNet Tutorial - Level {_mapLevel}";
+                            _rootConsole.Title = $"RoguePépéMémé - Level {_mapLevel}";
                             didPlayerAct = true;
                         }
                     }
@@ -194,6 +196,11 @@ namespace Test_Roguelike
                 // Tell RLNET to draw the console that we set
                 _rootConsole.Draw();
                 MessageLog.Draw(_messageConsole);
+                InventoryLog.Draw(_inventoryConsole);
+
+                _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Primary);
+                _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
+                
                 _renderRequired = false;
             }
         }

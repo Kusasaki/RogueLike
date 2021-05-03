@@ -39,7 +39,7 @@ namespace Test_Roguelike.Core
                 return;
             }
 
-            Symbol = IsUp ? '<' : '>';
+            Symbol = IsUp ? '_' : '^';
 
             if (map.IsInFov(X, Y))
             {

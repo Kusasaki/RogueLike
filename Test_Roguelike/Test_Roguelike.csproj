@@ -58,6 +58,11 @@
     <Compile Include="Core\Colors.cs" />
     <Compile Include="Core\Door.cs" />
     <Compile Include="Core\DungeonMap.cs" />
+    <Compile Include="Core\Item.cs" />
+    <Compile Include="Core\Items\Joke.cs" />
+    <Compile Include="Core\Items\Key.cs" />
+    <Compile Include="Core\Items\Potion.cs" />
+    <Compile Include="Core\Items\Weapon.cs" />
     <Compile Include="Core\Monster.cs" />
     <Compile Include="Core\Monsters\Ghost.cs" />
     <Compile Include="Core\Player.cs" />
@@ -70,12 +75,14 @@
     <Compile Include="Interfaces\IScheduleable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CommandSystem.cs" />
+    <Compile Include="Systems\InventoryLog.cs" />
     <Compile Include="Systems\MapGenerator.cs" />
     <Compile Include="Systems\MessageLog.cs" />
     <Compile Include="Systems\SchedulingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

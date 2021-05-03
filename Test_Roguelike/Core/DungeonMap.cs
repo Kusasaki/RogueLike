@@ -17,6 +17,7 @@ namespace Test_Roguelike.Core
         public Stairs StairsDown { get; set; }
         private List<Monster> _monsters;
         public List<Door> Doors { get; set; }
+        public List<Item> Items { get; protected set; }
 
         public DungeonMap()
         {
@@ -24,6 +25,7 @@ namespace Test_Roguelike.Core
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
             Doors = new List<Door>();
+            Items = new List<Item>();
         }
 
         // The Draw method will be called each time the map is updated
@@ -39,8 +41,12 @@ namespace Test_Roguelike.Core
             {
                 door.Draw(mapConsole, this);
             }
+            foreach (Item item in Items)
+            {
+                item.Draw(mapConsole, this);
+            }
             StairsUp.Draw(mapConsole, this);
-            if(StairsDown != null)
+            if (StairsDown != null)
                 StairsDown.Draw(mapConsole, this);
             // Keep an index so we know which position to draw monster stats at
             int i = 0;
@@ -92,8 +98,8 @@ namespace Test_Roguelike.Core
                 {
                     console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
                 }
-                
-                
+
+
             }
         }
 
@@ -169,7 +175,16 @@ namespace Test_Roguelike.Core
         public bool CanMoveDownToNextLevel()
         {
             Player player = Game.Player;
-            return StairsDown.X == player.X && StairsDown.Y == player.Y;
+            if (StairsDown != null && player.GetKey(Game._mapLevel))
+            {
+                Game.MessageLog.Add("Niveau suivant");
+                return StairsDown.X == player.X && StairsDown.Y == player.Y;
+            }
+            else
+            {
+                Game.MessageLog.Add("Vous ne pouvez pas prendre l'ascenceur, il vous manque la cle ou vous n'etes pas au bon endorit");
+                return false;
+            }
         }
 
         public void AddPlayer(Player player)
@@ -179,6 +194,16 @@ namespace Test_Roguelike.Core
             UpdatePlayerFieldOfView();
 
             Game.SchedulingSystem.Add(player);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            Items.Remove(item);
+        }
+
+        public Item GetItemAt(int x, int y)
+        {
+            return Items.FirstOrDefault(i => i.X == x && i.Y == y);
         }
 
         public void AddMonster(Monster monster)
@@ -201,6 +226,8 @@ namespace Test_Roguelike.Core
         {
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
         }
+
+
         // Look for a random location in the room that is walkable.
         public Point GetRandomWalkableLocationInRoom(Rectangle room)
         {

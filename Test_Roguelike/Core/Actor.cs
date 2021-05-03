@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RogueSharp;
 using RLNET;
 using Test_Roguelike.Interfaces;
+using Test_Roguelike.Core.Items;
 
 namespace Test_Roguelike.Core
 {
@@ -22,6 +23,8 @@ namespace Test_Roguelike.Core
         private string _name;
         private int _agility;
         private int _speed;
+        private Weapon _weapon;
+        private List<Item> _inventory;
 
         public int PAttack
         {
@@ -140,6 +143,30 @@ namespace Test_Roguelike.Core
             set
             {
                 _speed = value;
+            }
+        }
+
+        public Weapon Weapon
+        {
+            get
+            {
+                return _weapon;
+            }
+            set
+            {
+                _weapon = value;
+            }
+        }
+
+        public List<Item> Inventory
+        {
+            get
+            {
+                return _inventory;
+            }
+            set
+            {
+                _inventory = value;
             }
         }
 

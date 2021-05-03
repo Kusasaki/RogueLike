@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using RLNET;
 using RogueSharp;
+using Test_Roguelike.Core;
+using Test_Roguelike.Core.Items;
+
 
 namespace Test_Roguelike.Interfaces
 {
@@ -19,6 +22,7 @@ namespace Test_Roguelike.Interfaces
         int Resistance { get; set; }
         int Awareness { get; set; }
         int Speed { get; set; }
-
+        Weapon Weapon { get; set; }
+        List<Item> Inventory { get; set; }
     }
 }

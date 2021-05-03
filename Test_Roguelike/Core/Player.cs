@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RogueSharp;
 using RLNET;
 using Test_Roguelike.Interfaces;
+using Test_Roguelike.Core.Items;
 
 namespace Test_Roguelike.Core
 {
@@ -26,7 +27,24 @@ namespace Test_Roguelike.Core
             Speed = 2;
             X = 10;
             Y = 10;
+            Inventory = new List<Item>();
+            Weapon = new Weapon();
+            Weapon.Name = "Eplucheur de Legumes";
         }
+
+        public bool GetKey(int Level)
+        {
+            if (Inventory.OfType<Key>().Any(k => k.Level == Game._mapLevel))
+                return true;
+            else
+                return false;
+        }
+
+        public void Consume(Potion potion)
+        {
+
+        }
+
         public void DrawStats(RLConsole statConsole)
         {
             statConsole.Print(1, 1, $"Nom:    {Name}       X:  {X}   Y:  {Y}", Colors.Text);
