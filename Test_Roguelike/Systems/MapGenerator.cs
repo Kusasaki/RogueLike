@@ -17,15 +17,18 @@ namespace Test_Roguelike.Systems
         private readonly int _height;
         private readonly List<int[]> coordinates;
         private readonly List<int[]> doors;
+        private readonly int _level;
+        private readonly static int _maxlevel = 5;
 
         private readonly DungeonMap _map;
 
         // Constructing a new MapGenerator requires the dimensions of the maps it will create
         // as well as the sizes and maximum number of rooms
-        public MapGenerator(int width, int height)
+        public MapGenerator(int width, int height, int mapLevel)
         {
             _width = width;
             _height = height;
+            _level = mapLevel;
             _map = new DungeonMap();
             coordinates = new List<int[]>();
             
@@ -94,6 +97,7 @@ namespace Test_Roguelike.Systems
                 CreateRoom(room);
                 CreateDoors(room);
             }
+            CreateStairs();
             PlacePlayer();
             PlaceMonsters();
             return _map;
@@ -150,6 +154,24 @@ namespace Test_Roguelike.Systems
                     _map.SetCellProperties(x, y, true, true, true);
                 }
             }
+        }
+
+
+        private void CreateStairs()
+        {
+            _map.StairsUp = new Stairs
+            {
+                X = _map.Rooms.First().Center.X + 1,
+                Y = _map.Rooms.First().Center.Y,
+                IsUp = true
+            };
+            if(_level < _maxlevel)
+            _map.StairsDown = new Stairs
+            {
+                X = _map.Rooms.Last().Center.X,
+                Y = _map.Rooms.Last().Center.Y,
+                IsUp = false
+            };
         }
 
 

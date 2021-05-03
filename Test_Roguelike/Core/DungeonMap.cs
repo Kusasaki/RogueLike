@@ -13,12 +13,14 @@ namespace Test_Roguelike.Core
     public class DungeonMap : Map
     {
         public List<Rectangle> Rooms;
-
+        public Stairs StairsUp { get; set; }
+        public Stairs StairsDown { get; set; }
         private List<Monster> _monsters;
         public List<Door> Doors { get; set; }
 
         public DungeonMap()
         {
+            Game.SchedulingSystem.Clear();
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
             Doors = new List<Door>();
@@ -37,6 +39,9 @@ namespace Test_Roguelike.Core
             {
                 door.Draw(mapConsole, this);
             }
+            StairsUp.Draw(mapConsole, this);
+            if(StairsDown != null)
+                StairsDown.Draw(mapConsole, this);
             // Keep an index so we know which position to draw monster stats at
             int i = 0;
 
@@ -159,6 +164,12 @@ namespace Test_Roguelike.Core
 
                 Game.MessageLog.Add($"{actor.Name} opened a door");
             }
+        }
+
+        public bool CanMoveDownToNextLevel()
+        {
+            Player player = Game.Player;
+            return StairsDown.X == player.X && StairsDown.Y == player.Y;
         }
 
         public void AddPlayer(Player player)

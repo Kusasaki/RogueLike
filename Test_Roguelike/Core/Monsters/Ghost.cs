@@ -17,7 +17,7 @@ namespace Test_Roguelike.Core.Monsters
             ghost.Name = "Jean Bon Bheur";
             ghost.Health = 14;
             ghost.MaxHealth = 14;
-            ghost.PAttack = 10;
+            ghost.PAttack = 1;
             ghost.FAttack = 2;
             ghost.Defense = 5;
             ghost.Resistance = 0;
@@ -25,7 +25,7 @@ namespace Test_Roguelike.Core.Monsters
             ghost.Awareness = 20;
             ghost.Symbol = 'G';
             ghost.Color = Swatch.PrimaryDarkest;
-            ghost.Speed = 14;
+            ghost.Speed = 25;
             return ghost;
         }
     }

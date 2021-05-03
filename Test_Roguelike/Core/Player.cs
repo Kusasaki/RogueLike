@@ -23,7 +23,7 @@ namespace Test_Roguelike.Core
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
-            Speed = 9;
+            Speed = 2;
             X = 10;
             Y = 10;
         }
