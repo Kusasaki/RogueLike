@@ -26,7 +26,9 @@ namespace Test_Roguelike.Systems
             if (scheduleable is Player)
             {
                 IsPlayerTurn = true;
-                Game.SchedulingSystem.Add(Game.Player);
+                if (Game.Player.Health > 0)
+                    Game.SchedulingSystem.Add(Game.Player);
+                
             }
             else
             {

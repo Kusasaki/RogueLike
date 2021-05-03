@@ -17,7 +17,7 @@ namespace Test_Roguelike.Core.Monsters
             ghost.Name = "Jean Bon Bheur";
             ghost.Health = 14;
             ghost.MaxHealth = 14;
-            ghost.PAttack = 1;
+            ghost.PAttack = 10;
             ghost.FAttack = 2;
             ghost.Defense = 5;
             ghost.Resistance = 0;
