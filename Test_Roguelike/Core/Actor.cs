@@ -9,7 +9,7 @@ using Test_Roguelike.Interfaces;
 
 namespace Test_Roguelike.Core
 {
-    public class Actor : IActor, IDrawable
+    public class Actor : IActor, IDrawable, IScheduleable
     {
         //IActor
         private int _pAttack;
@@ -21,6 +21,7 @@ namespace Test_Roguelike.Core
         private int _maxHealth;
         private string _name;
         private int _agility;
+        private int _speed;
 
         public int PAttack
         {
@@ -130,6 +131,18 @@ namespace Test_Roguelike.Core
             }
         }
 
+        public int Speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+
         // IDrawable
         public RLColor Color { get; set; }
         public char Symbol { get; set; }
@@ -152,6 +165,15 @@ namespace Test_Roguelike.Core
             {
                 // When not in field-of-view just draw a normal floor
                 console.Set(X, Y, Colors.Floor, Colors.Floor, ' ');
+            }
+        }
+
+        // IScheduleable
+        public int Time
+        {
+            get
+            {
+                return Speed;
             }
         }
     }

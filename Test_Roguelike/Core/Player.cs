@@ -16,12 +16,14 @@ namespace Test_Roguelike.Core
             PAttack = 2;
             FAttack = 0;
             Awareness = 5;
-            Health = 100;
-            MaxHealth = 100;
+            Health = 50;
+            MaxHealth = 50;
             Awareness = 15;
             Name = "Rogue";
             Color = Colors.Player;
             Symbol = 'O';
+            Agility = 30;
+            Speed = 9;
             X = 10;
             Y = 10;
         }
@@ -31,7 +33,7 @@ namespace Test_Roguelike.Core
             statConsole.Print(1, 2, $"Points de vie:  {Health}/{MaxHealth}", Colors.Text);
             statConsole.Print(1, 3, $"Attaque physique:  {PAttack}", Colors.Text);
             statConsole.Print(1, 4, $"Defense: {Defense}", Colors.Text);
-            statConsole.Print(1, 5, $"Agilité: {Agility}", Colors.Text);
+            statConsole.Print(1, 5, $"Agilite: {Agility}", Colors.Text);
         }
     }
 }

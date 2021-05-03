@@ -94,8 +94,23 @@ namespace Test_Roguelike.Systems
                 CreateRoom(room);
                 CreateDoors(room);
             }
+            PlacePlayer();
             PlaceMonsters();
             return _map;
+        }
+
+        private void PlacePlayer()
+        {
+            Player player = Game.Player;
+            if (player == null)
+            {
+                player = new Player();
+            }
+
+            player.X = _map.Rooms[0].Center.X;
+            player.Y = _map.Rooms[0].Center.Y;
+
+            _map.AddPlayer(player);
         }
 
         private void CreateDoors(Rectangle room)

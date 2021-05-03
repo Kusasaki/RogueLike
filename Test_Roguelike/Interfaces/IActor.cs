@@ -18,6 +18,7 @@ namespace Test_Roguelike.Interfaces
         int Defense { get; set; }
         int Resistance { get; set; }
         int Awareness { get; set; }
-        
+        int Speed { get; set; }
+
     }
 }

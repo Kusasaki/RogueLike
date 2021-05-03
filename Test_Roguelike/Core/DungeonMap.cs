@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RLNET;
 using RogueSharp;
+using Test_Roguelike.Systems;
 
 namespace Test_Roguelike.Core
 {
@@ -159,13 +160,36 @@ namespace Test_Roguelike.Core
                 Game.MessageLog.Add($"{actor.Name} opened a door");
             }
         }
+
+        public void AddPlayer(Player player)
+        {
+            Game.Player = player;
+            SetIsWalkable(player.X, player.Y, false);
+            UpdatePlayerFieldOfView();
+
+            Game.SchedulingSystem.Add(player);
+        }
+
         public void AddMonster(Monster monster)
         {
             _monsters.Add(monster);
             // After adding the monster to the map make sure to make the cell not walkable
             SetIsWalkable(monster.X, monster.Y, false);
+            Game.SchedulingSystem.Add(monster);
         }
 
+        public void RemoveMonster(Monster monster)
+        {
+            _monsters.Remove(monster);
+            // After removing the monster from the map, make sure the cell is walkable again
+            SetIsWalkable(monster.X, monster.Y, true);
+            Game.SchedulingSystem.Remove(monster);
+        }
+
+        public Monster GetMonsterAt(int x, int y)
+        {
+            return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
+        }
         // Look for a random location in the room that is walkable.
         public Point GetRandomWalkableLocationInRoom(Rectangle room)
         {

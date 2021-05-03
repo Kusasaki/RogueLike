@@ -41,7 +41,7 @@ namespace Test_Roguelike
         public static DungeonMap DungeonMap { get; private set; }
         //public static Player Player { get; private set; }
 
-        public static Player Player { get; private set; }
+        public static Player Player { get; set; }
 
         private static bool _renderRequired = true;
 
@@ -49,6 +49,8 @@ namespace Test_Roguelike
 
         public static MessageLog MessageLog { get; private set; }
         public static IRandom Random { get; private set; }
+
+        public static SchedulingSystem SchedulingSystem { get; private set; }
 
         public static void Main()
         {
@@ -72,20 +74,32 @@ namespace Test_Roguelike
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
-            Player = new Player();
-            CommandSystem = new CommandSystem();
-
+            
             // Create a new MessageLog and print the random seed used to generate the level
             MessageLog = new MessageLog();
             MessageLog.Add("The rogue arrives on level 1");
             MessageLog.Add($"Level created with seed");
 
-            // The next two lines already existed
+            SchedulingSystem = new SchedulingSystem();
+
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();
 
-            MessageLog.Add("Youpi");
+            CommandSystem = new CommandSystem();
+
+            // Set background color and text for each console so that we can verify they are in the correct positions
+            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
+            _mapConsole.Print(1, 1, "Map", Colors.TextHeading);
+
+            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
+            _messageConsole.Print(1, 1, "Messages", Colors.TextHeading);
+
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Primary);
+            _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
+
+            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Primary);
+            _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
 
             // Set up a handler for RLNET's Update event
             _rootConsole.Update += OnRootConsoleUpdate;
@@ -100,48 +114,44 @@ namespace Test_Roguelike
         // Event handler for RLNET's Update event
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
         {
-            // Set background color and text for each console so that we can verify they are in the correct positions
-            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
-            _mapConsole.Print(1, 1, "Map", Colors.TextHeading);
-
-            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
-            _messageConsole.Print(1, 1, "Messages", Colors.TextHeading);
-
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Primary);
-            _statConsole.Print(1, 1, "Stats", Colors.TextHeading);
-
-            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Primary);
-            _inventoryConsole.Print(1, 1, "Inventory", Colors.TextHeading);
-
             bool didPlayerAct = false;
             RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
 
-            if (keyPress != null)
+            if (CommandSystem.IsPlayerTurn)
             {
-                if (keyPress.Key == RLKey.Up)
+                if (keyPress != null)
                 {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    if (keyPress.Key == RLKey.Up)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    }
+                    else if (keyPress.Key == RLKey.Down)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+                    }
+                    else if (keyPress.Key == RLKey.Left)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
+                    }
+                    else if (keyPress.Key == RLKey.Right)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
+                    }
+                    else if (keyPress.Key == RLKey.Escape)
+                    {
+                        _rootConsole.Close();
+                    }
                 }
-                else if (keyPress.Key == RLKey.Down)
+
+                if (didPlayerAct)
                 {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
-                }
-                else if (keyPress.Key == RLKey.Left)
-                {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
-                }
-                else if (keyPress.Key == RLKey.Right)
-                {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
-                }
-                else if (keyPress.Key == RLKey.Escape)
-                {
-                    _rootConsole.Close();
+                    _renderRequired = true;
+                    CommandSystem.EndPlayerTurn();
                 }
             }
-
-            if (didPlayerAct)
+            else
             {
+                CommandSystem.ActivateMonsters();
                 _renderRequired = true;
             }
         }

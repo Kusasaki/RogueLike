@@ -1,0 +1,13 @@
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\Test_Roguelike.exe.config
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\Test_Roguelike.exe
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\Test_Roguelike.pdb
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\OpenTK.dll
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\RLNET.dll
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\RogueSharp.dll
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\OpenTK.xml
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\bin\Release\OpenTK.dll.config
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Release\Test_Roguelike.csprojAssemblyReference.cache
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Release\Test_Roguelike.csproj.CoreCompileInputs.cache
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Release\Test_Roguelike.csproj.CopyComplete
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Release\Test_Roguelike.exe
+C:\Users\Lypra\Desktop\RogueLike\Test_Roguelike\obj\Release\Test_Roguelike.pdb
