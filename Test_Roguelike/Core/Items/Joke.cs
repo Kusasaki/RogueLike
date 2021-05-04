@@ -8,10 +8,27 @@ namespace Test_Roguelike.Core.Items
 {
     public class Joke : Item
     {
-        int _damage;
-        string _description;
-        string _category;
+        public int Damage { get; }
+        public string Description { get; }
+        public string Category { get; }
 
+        public Joke(int dmg, string desc, string category)
+        {
+            Damage = dmg;
+            Category = category;
+            Description = desc;
+            Symbol = 'J';
+        }
 
+        public string JokeDescGenerator(string category)
+        {
+            //TODO
+            return "la";
+        }
+
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }

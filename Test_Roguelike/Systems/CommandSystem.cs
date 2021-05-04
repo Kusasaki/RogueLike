@@ -233,11 +233,31 @@ namespace Test_Roguelike.Systems
             {
                 Game.MessageLog.Add($"  {defender.Name} was killed, GAME OVER MAN!");
             }
-            else if (defender is Monster)
+            else if (defender is Monster monster)
             {
-                Game.DungeonMap.RemoveMonster((Monster)defender);
+                if (monster.Inventory != null)
+                    foreach (Item item in monster.Inventory)
+                    {
+                        if (item is Potion potion)
+                        {
+                            Game.Player.Consume(potion);
+                        }
+                        else if (item is Weapon weapon)
+                        {
+                            Game.Player.Weapon = weapon;
+                        }
+                        else
+                        {
+                            Game.Player.Inventory.Add(item);
+                        }
+                        Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
+                    }
 
-                Game.MessageLog.Add($"  {defender.Name} died and dropped {defender.Defense} gold");
+
+                Game.DungeonMap.RemoveMonster(monster);
+                
+                Game.MessageLog.Add($"  {monster.Name} est mort");
+              
             }
         }
     }

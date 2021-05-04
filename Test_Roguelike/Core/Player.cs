@@ -16,11 +16,10 @@ namespace Test_Roguelike.Core
         {
             PAttack = 2;
             FAttack = 0;
-            Awareness = 5;
             Health = 50;
             MaxHealth = 50;
-            Awareness = 15;
-            Name = "Rogue";
+            Awareness = 12;
+            Name = "Lilia";
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
@@ -28,8 +27,7 @@ namespace Test_Roguelike.Core
             X = 10;
             Y = 10;
             Inventory = new List<Item>();
-            Weapon = new Weapon();
-            Weapon.Name = "Eplucheur de Legumes";
+            Weapon = new Weapon("Eplucheur de Legumes", 0, 1);
         }
 
         public bool GetKey(int Level)
@@ -42,12 +40,17 @@ namespace Test_Roguelike.Core
 
         public void Consume(Potion potion)
         {
-
+            Health += potion.BoostHealth;
+            MaxHealth += potion.BoostMaxHealth;
+            Defense += potion.BoostDefense;
+            Resistance += potion.BoostResistence;
+            Speed += potion.BoostSpeed;
+            Agility += potion.BoostAgility;
         }
 
         public void DrawStats(RLConsole statConsole)
         {
-            statConsole.Print(1, 1, $"Nom:    {Name}       X:  {X}   Y:  {Y}", Colors.Text);
+            statConsole.Print(1, 1, $"Nom:    {Name}    X:  {X}   Y:  {Y}", Colors.Text);
             statConsole.Print(1, 2, $"Points de vie:  {Health}/{MaxHealth}", Colors.Text);
             statConsole.Print(1, 3, $"Attaque physique:  {PAttack}", Colors.Text);
             statConsole.Print(1, 4, $"Defense: {Defense}", Colors.Text);

@@ -99,10 +99,10 @@ namespace Test_Roguelike.Systems
                 CreateRoom(room);
                 CreateDoors(room);
             }
-            var key = new Key(_level);
-            key.X = 8;
-            key.Y = 8;
-            _map.Items.Add(key);
+            var arme = new Weapon("Biffle", 12, 10);
+            arme.X = 8;
+            arme.Y = 8;
+            _map.Items.Add(arme);
             CreateStairs();
             PlacePlayer();
             PlaceMonsters();
@@ -186,10 +186,10 @@ namespace Test_Roguelike.Systems
             foreach (var room in _map.Rooms)
             {
                 // Each room has a 70% chance of having monsters
-                if (Dice.Roll("1D10") < 8)
+                if (Dice.Roll("1D10") < 7)
                 {
                     // Generate between 1 and 4 monsters
-                    var numberOfMonsters = Dice.Roll("1D4");
+                    var numberOfMonsters = Dice.Roll("1D3");
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         // Find a random walkable location in the room to place the monster
@@ -200,6 +200,8 @@ namespace Test_Roguelike.Systems
                         {
                             // Temporarily hard code this monster to be created at level 1
                             var monster = Ghost.Create();
+                            if (i == 0)
+                                monster.Inventory.Add(new Key(_level));
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
                             _map.AddMonster(monster);

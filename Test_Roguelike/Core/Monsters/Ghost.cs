@@ -26,6 +26,7 @@ namespace Test_Roguelike.Core.Monsters
             ghost.Symbol = 'G';
             ghost.Color = Swatch.PrimaryDarkest;
             ghost.Speed = 25;
+            ghost.Inventory = new List<Item>();
             return ghost;
         }
     }
