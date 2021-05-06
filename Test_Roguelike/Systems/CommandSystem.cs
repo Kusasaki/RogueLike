@@ -335,6 +335,7 @@ namespace Test_Roguelike.Systems
 
                 //Enleve le monstre de la carte
                 Game.DungeonMap.RemoveMonster(monster);
+                Game.Player.Heal((int)Math.Floor(Game.Player.MaxHealth * 3.0 / 100));
                 
                 Game.MessageLog.Add($"  {monster.Name} est mort");
               
