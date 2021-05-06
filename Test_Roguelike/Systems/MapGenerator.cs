@@ -197,7 +197,7 @@ namespace Test_Roguelike.Systems
                 if (Dice.Roll("1D10") < 7)
                 {
                     // Cree entre un et deux monstres
-                    var numberOfMonsters = Dice.Roll("1D2");
+                    var numberOfMonsters = Dice.Roll("1D3");
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         // Trouve une case sur laquelle on peut marcher (pour eviter de creer un monstre dans un mur)
@@ -271,13 +271,13 @@ namespace Test_Roguelike.Systems
                             switch (option)
                             {
                                 case 1:
-                                    potion = new Potion("Health", Dice.Roll("1D4"));
+                                    potion = new Potion("Health", Dice.Roll("1D4") + _level);
                                     potion.X = randomRoomLocation.X;
                                     potion.Y = randomRoomLocation.Y;
                                     _map.Items.Add(potion);
                                     break;
                                 case 2:
-                                    potion = new Potion("Health", Dice.Roll("1D8"));
+                                    potion = new Potion("Health", Dice.Roll("1D8") + 2 * _level);
                                     potion.X = randomRoomLocation.X;
                                     potion.Y = randomRoomLocation.Y;
                                     _map.Items.Add(potion);
