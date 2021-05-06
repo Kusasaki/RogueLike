@@ -207,7 +207,7 @@ namespace Test_Roguelike.Systems
                         {
                             var monster = Ghost.Create(_level);
                             //Creation de la cle du niveau pour un seul monstre sur l'etage -> difficulte acccrue
-                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 4) || (!keyCreated && j < (_map.Rooms.Count - 4)))
+                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 5) || (!keyCreated && j < (_map.Rooms.Count - 5)))
                             {
                                 monster.Inventory.Add(new Key(_level));
                                 keyCreated = true;
