@@ -161,7 +161,7 @@ namespace Test_Roguelike.Core
 
                 Game.Player.Heal((int)(Game._mapLevel/2.0) + 1);
                 
-                Game.MessageLog.Add($"{actor.Name} opened a door");
+                Game.MessageLog.Add($"{actor.Name} ouvre une porte");
             }
         }
 

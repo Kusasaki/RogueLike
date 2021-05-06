@@ -79,7 +79,7 @@ namespace Test_Roguelike
             
             // Create a new MessageLog and print the random seed used to generate the level
             MessageLog = new MessageLog();
-            MessageLog.Add("The rogue arrives on level 1");
+            MessageLog.Add("Bienvenue dans la TOUR DES FANTOMES SURPUISSANTS, elue meilleure chambre d'hote 2015 !");
 
             InventoryLog = new InventoryLog();
 
