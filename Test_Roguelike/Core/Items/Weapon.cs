@@ -16,12 +16,12 @@ namespace Test_Roguelike.Core.Items
             Name = name;
             PAttackBoost = dmg;
             RiposteChance = chance;
-            Symbol = 'W';
+            Symbol = 'A';
         }
 
         public override string ToString()
         {
-            return this.Name;
+            return " arme : " + this.Name;
         }
     }
 }

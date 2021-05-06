@@ -39,7 +39,7 @@ namespace Test_Roguelike.Core
             statConsole.SetBackColor(3 + width, yPosition, remainingWidth, 1, Swatch.PrimaryDarkest);
 
             // Print the monsters name over top of the health bar
-            statConsole.Print(2, yPosition, $": {Name}", RLColor.White);
+            statConsole.Print(2, yPosition, $": {Name} + {Health}", RLColor.White);
         }
     }
 }

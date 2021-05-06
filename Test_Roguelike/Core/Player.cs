@@ -12,6 +12,8 @@ namespace Test_Roguelike.Core
 {
     public class Player : Actor
     {
+        public bool Riposte { get; set; }
+
         public Player()
         {
             PAttack = 2;
@@ -23,10 +25,12 @@ namespace Test_Roguelike.Core
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
-            Speed = 2;
+            Speed = 14;
             X = 10;
             Y = 10;
             Inventory = new List<Item>();
+            Inventory.Add(new Joke(3));
+            Inventory.Add(new Joke(2));
             Weapon = new Weapon("Eplucheur de Legumes", 0, 1);
         }
 
@@ -38,22 +42,47 @@ namespace Test_Roguelike.Core
                 return false;
         }
 
+        public void Heal(int value)
+        {
+            Health += value;
+            if (Health > MaxHealth)
+                Health = MaxHealth;
+        }
+
         public void Consume(Potion potion)
         {
-            Health += potion.BoostHealth;
+            Heal(potion.BoostHealth);
+            
             MaxHealth += potion.BoostMaxHealth;
+            Health += potion.BoostMaxHealth;
+            
             Defense += potion.BoostDefense;
+            if (Defense > 45)
+                Defense = 45;
+
             Resistance += potion.BoostResistence;
-            Speed += potion.BoostSpeed;
+            if (Resistance > 50)
+                Resistance = 50;
+            
+            Speed -= potion.BoostSpeed;
+            if (Speed <= 5)
+                Speed = 5;
+
             Agility += potion.BoostAgility;
+            if (Agility > 40)
+                Agility = 40;
         }
 
         public void DrawStats(RLConsole statConsole)
         {
-            statConsole.Print(1, 1, $"Nom:    {Name}    X:  {X}   Y:  {Y}", Colors.Text);
+            statConsole.Print(1, 1, $"Nom:  {Name}", Colors.Text);
             statConsole.Print(1, 2, $"Points de vie:  {Health}/{MaxHealth}", Colors.Text);
+
             statConsole.Print(1, 3, $"Attaque physique:  {PAttack}", Colors.Text);
+
             statConsole.Print(1, 4, $"Defense: {Defense}", Colors.Text);
+
+
             statConsole.Print(1, 5, $"Agilite: {Agility}", Colors.Text);
         }
     }

@@ -7,6 +7,7 @@ using RogueSharp;
 using RogueSharp.DiceNotation;
 using RLNET;
 using Test_Roguelike.Core;
+using Test_Roguelike.Core.Monsters;
 using Test_Roguelike.Core.Items;
 using Test_Roguelike.Interfaces;
 
@@ -134,7 +135,7 @@ namespace Test_Roguelike.Systems
 
             int hits = ResolveAttack(attacker, defender, attackMessage);
 
-            int blocks = ResolveDefense(defender, hits, attackMessage, defenseMessage);
+            int blocks = ResolveDefense(defender, attacker, hits, attackMessage, defenseMessage);
 
             Game.MessageLog.Add(attackMessage.ToString());
             if (!string.IsNullOrWhiteSpace(defenseMessage.ToString()))
@@ -152,55 +153,63 @@ namespace Test_Roguelike.Systems
         {
             int hits = 0;
 
-            attackMessage.AppendFormat("{0} attacks {1} and rolls: ", attacker.Name, defender.Name);
+            attackMessage.AppendFormat("{0} attaque {1}", attacker.Name, defender.Name);
 
-            // Roll a number of 100-sided dice equal to the Attack value of the attacking actor
-            DiceExpression attackDice = new DiceExpression().Dice(attacker.PAttack, 100);
-            DiceResult attackResult = attackDice.Roll();
-
-            // Look at the face value of each single die that was rolled
-            foreach (TermResult termResult in attackResult.Results)
+            if (attacker is Player player)
             {
-                attackMessage.Append(termResult.Value + ", ");
-                // Compare the value to 100 minus the attack chance and add a hit if it's greater
-                if (termResult.Value >= 100 - attacker.Agility)
+                if (defender.Health / (defender.MaxHealth * 1.0) <= 0.15)
                 {
-                    hits++;
+                    if (player.Inventory.OfType<Joke>().Any())
+                    {
+                        hits = 500;
+                        Game.MessageLog.Add(player.Inventory.OfType<Joke>().First().Description);
+                        player.Inventory.Remove(player.Inventory.OfType<Joke>().First());
+                    }
+                    else
+                    {
+                        hits = 0;
+                        Game.MessageLog.Add("AH JE N'AI PLUS DE BLAGUES POUR LES CONJURER !");
+                        Task.Delay(2000);
+                    }
+                }    
+                else
+                {
+                    hits = player.Weapon.PAttackBoost + player.PAttack;
                 }
+            } 
+
+            if(attacker is Ghost ghost)
+            {
+                hits = ghost.FAttack;
+            }
+
+            if(attacker is Boss boss)
+            {
+                hits = boss.PAttack;
             }
 
             return hits;
         }
 
         // The defender rolls based on his stats to see if he blocks any of the hits from the attacker
-        private static int ResolveDefense(Actor defender, int hits, StringBuilder attackMessage, StringBuilder defenseMessage)
+        private static int ResolveDefense(Actor defender, Actor attacker, int hits, StringBuilder attackMessage, StringBuilder defenseMessage)
         {
             int blocks = 0;
 
             if (hits > 0)
             {
-                attackMessage.AppendFormat("scoring {0} hits.", hits);
-                defenseMessage.AppendFormat("  {0} defends and rolls: ", defender.Name);
-
-                // Roll a number of 100-sided dice equal to the Defense value of the defendering actor
-                DiceExpression defenseDice = new DiceExpression().Dice(defender.Defense, 100);
-                DiceResult defenseRoll = defenseDice.Roll();
-
-                // Look at the face value of each single die that was rolled
-                foreach (TermResult termResult in defenseRoll.Results)
-                {
-                    defenseMessage.Append(termResult.Value + ", ");
-                    // Compare the value to 100 minus the defense chance and add a block if it's greater
-                    if (termResult.Value >= 100 - defender.Defense)
-                    {
-                        blocks++;
-                    }
-                }
-                defenseMessage.AppendFormat("resulting in {0} blocks.", blocks);
+                if (attacker is Player || attacker is Boss)
+                    blocks = (int)(hits * defender.Defense / 100.0);
+                else if (attacker is Ghost)
+                    blocks = (int)(hits * defender.Resistance / 100.0);
+                else if (defender.Agility >= Dice.Roll("1D100"))
+                    blocks = hits;
+                
+                defenseMessage.AppendFormat("{0} bloque ", blocks);
             }
             else
             {
-                attackMessage.Append("and misses completely.");
+                attackMessage.Append("et n'inflige pas de degats.");
             }
 
             return blocks;
@@ -213,7 +222,7 @@ namespace Test_Roguelike.Systems
             {
                 defender.Health = defender.Health - damage;
 
-                Game.MessageLog.Add($"  {defender.Name} was hit for {damage} damage");
+                Game.MessageLog.Add($"  {defender.Name} a subi {damage} points de degat");
 
                 if (defender.Health <= 0)
                 {
@@ -222,7 +231,7 @@ namespace Test_Roguelike.Systems
             }
             else
             {
-                Game.MessageLog.Add($"  {defender.Name} blocked all damage");
+                Game.MessageLog.Add($"  {defender.Name} a esquive le coup");
             }
         }
 
@@ -231,7 +240,7 @@ namespace Test_Roguelike.Systems
         {
             if (defender is Player)
             {
-                Game.MessageLog.Add($"  {defender.Name} was killed, GAME OVER MAN!");
+                Game.MessageLog.Add($"  {defender.Name} est mort, VOUS AVEZ PERDUUUUUUUU !");
             }
             else if (defender is Monster monster)
             {

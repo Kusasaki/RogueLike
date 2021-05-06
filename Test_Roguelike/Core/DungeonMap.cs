@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RLNET;
 using RogueSharp;
 using Test_Roguelike.Systems;
+using Test_Roguelike.Core.Items;
 
 namespace Test_Roguelike.Core
 {
@@ -168,6 +169,8 @@ namespace Test_Roguelike.Core
                 // Once the door is opened it should be marked as transparent and no longer block field-of-view
                 SetCellProperties(x, y, true, cell.IsWalkable, cell.IsExplored);
 
+                Game.Player.Heal((int)(Game.Player.MaxHealth * 6 / 100.0));
+                
                 Game.MessageLog.Add($"{actor.Name} opened a door");
             }
         }
@@ -178,6 +181,7 @@ namespace Test_Roguelike.Core
             if (StairsDown != null && player.GetKey(Game._mapLevel))
             {
                 Game.MessageLog.Add("Niveau suivant");
+                player.Inventory.Remove(player.Inventory.Find(k => k is Key key && key.Level == Game._mapLevel));
                 return StairsDown.X == player.X && StairsDown.Y == player.Y;
             }
             else

@@ -16,7 +16,7 @@ namespace Test_Roguelike
         // The screen height and width are in number of tiles
         private static readonly int _screenWidth = 150;
         private static readonly int _screenHeight = 80;
-        private static RLRootConsole _rootConsole;
+        public static RLRootConsole _rootConsole { get; private set; }
 
         // The map console takes up most of the screen and is where the map will be drawn
         private static readonly int _mapWidth = 120;
@@ -24,13 +24,13 @@ namespace Test_Roguelike
         private static RLConsole _mapConsole;
 
         // Below the map console is the message console which displays attack rolls and other information
-        private static readonly int _messageWidth = 120;
+        private static readonly int _messageWidth = 150;
         private static readonly int _messageHeight = 15;
         private static RLConsole _messageConsole;
 
         // The stat console is to the right of the map and display player and monster stats
         private static readonly int _statWidth = 30;
-        private static readonly int _statHeight = 80;
+        private static readonly int _statHeight = 65;
         private static RLConsole _statConsole;
 
         // Above the map is the inventory console which shows the players equipment, abilities, and items

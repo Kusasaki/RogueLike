@@ -99,13 +99,15 @@ namespace Test_Roguelike.Systems
                 CreateRoom(room);
                 CreateDoors(room);
             }
-            var arme = new Weapon("Biffle", 12, 10);
-            arme.X = 8;
-            arme.Y = 8;
-            _map.Items.Add(arme);
+            var joke = new Joke(1);
+            joke.X = 8;
+            joke.Y = 8;
+            _map.Items.Add(joke);
             CreateStairs();
             PlacePlayer();
+            PlaceBoss();
             PlaceMonsters();
+            PlaceItems();
             return _map;
         }
 
@@ -172,17 +174,19 @@ namespace Test_Roguelike.Systems
                 IsUp = true
             };
             if(_level < _maxlevel)
-            _map.StairsDown = new Stairs
-            {
-                X = _map.Rooms.First().Center.X + 1,
-                Y = _map.Rooms.First().Center.Y,
-                IsUp = false
-            };
+                _map.StairsDown = new Stairs
+                {
+                    X = _map.Rooms.First().Center.X + 1,
+                    Y = _map.Rooms.First().Center.Y,
+                    IsUp = false
+                };
         }
 
 
         private void PlaceMonsters()
         {
+            bool keyCreated = false;
+            int j = 0;
             foreach (var room in _map.Rooms)
             {
                 // Each room has a 70% chance of having monsters
@@ -199,12 +203,72 @@ namespace Test_Roguelike.Systems
                         if (randomRoomLocation != null)
                         {
                             // Temporarily hard code this monster to be created at level 1
-                            var monster = Ghost.Create();
-                            if (i == 0)
+                            var monster = Ghost.Create(_level);
+                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 2) || (!keyCreated && j == (_map.Rooms.Count - 1)))
+                            {
                                 monster.Inventory.Add(new Key(_level));
+                                keyCreated = true;
+                            }   
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
+                            if (Dice.Roll("1D10") < 9)
+                                monster.Inventory.Add(new Joke(Dice.Roll("1D4")));
                             _map.AddMonster(monster);
+                        }
+                    }
+                }
+                j++;
+            }
+        }
+
+        private void PlaceBoss()
+        {
+            Boss _levelBoss = Boss.Create(_level);
+            Random rnd = new Random();
+            var room = _map.Rooms[rnd.Next(1, _map.Rooms.Count)];
+            _levelBoss.X = room.Center.X - 1;
+            _levelBoss.Y = room.Center.Y;
+            _map.AddMonster(_levelBoss);
+        }
+
+        private void PlaceItems()
+        {
+            foreach (var room in _map.Rooms)
+            {
+                // Each room has a 70% chance of having monsters
+                if (Dice.Roll("1D20") < 5)
+                {
+                    // Generate between 1 and 4 monsters
+                    var numberOfItems = Dice.Roll("1D2");
+                    for (int i = 0; i < numberOfItems; i++)
+                    {
+                        // Find a random walkable location in the room to place the monster
+                        Point randomRoomLocation = _map.GetRandomWalkableLocationInRoom(room);
+                        // It's possible that the room doesn't have space to place a monster
+                        // In that case skip creating the monster
+                        if (randomRoomLocation != null)
+                        {
+                            // Temporarily hard code this monster to be created at level 1
+                            var option = Dice.Roll("1D2");
+                            Potion potion;
+
+                            switch (option)
+                            {
+                                case 1:
+                                    potion = new Potion("Health", Dice.Roll("1D3"));
+                                    potion.X = randomRoomLocation.X;
+                                    potion.Y = randomRoomLocation.Y;
+                                    _map.Items.Add(potion);
+                                    break;
+                                case 2:
+                                    potion = new Potion("Health", Dice.Roll("1D6"));
+                                    potion.X = randomRoomLocation.X;
+                                    potion.Y = randomRoomLocation.Y;
+                                    _map.Items.Add(potion);
+                                    break;
+                            }
+
+                            
                         }
                     }
                 }

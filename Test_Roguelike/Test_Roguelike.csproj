@@ -64,6 +64,7 @@
     <Compile Include="Core\Items\Potion.cs" />
     <Compile Include="Core\Items\Weapon.cs" />
     <Compile Include="Core\Monster.cs" />
+    <Compile Include="Core\Monsters\Boss.cs" />
     <Compile Include="Core\Monsters\Ghost.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="Core\Stairs.cs" />

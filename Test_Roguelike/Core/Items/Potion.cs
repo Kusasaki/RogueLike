@@ -59,21 +59,21 @@ namespace Test_Roguelike.Core.Items
 
         public override string ToString()
         {
-            string ch = "Potion ";
+            string ch = "Potion";
             if (BoostHealth != 0)
-                ch = "de Sante " + BoostHealth;
+                ch += " de Sante " + BoostHealth;
             if (BoostMaxHealth != 0)
-                ch = "de Vitalite " + BoostMaxHealth;
+                ch += " de Vitalite " + BoostMaxHealth;
             if (BoostDefense != 0)
-                ch = "de Defense " + BoostDefense;
+                ch += " de Defense " + BoostDefense;
             if (BoostResistence != 0)
-                ch = "de Resistance " + BoostResistence;
+                ch += " de Resistance " + BoostResistence;
             if (BoostSpeed != 0)
-                ch = "de Vitesse " + BoostSpeed;
+                ch += " de Vitesse " + BoostSpeed;
             if (BoostAgility != 0)
-                ch = "d'Agilite " + BoostAgility;
+                ch += " d'Agilite " + BoostAgility;
 
-            return base.ToString();
+            return ch;
         }
     }
 }
