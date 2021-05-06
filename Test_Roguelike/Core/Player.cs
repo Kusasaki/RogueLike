@@ -27,7 +27,7 @@ namespace Test_Roguelike.Core
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
-            Speed = 2;
+            Speed = 15;
             X = 10;
             Y = 10;
             Inventory = new List<Item>();
