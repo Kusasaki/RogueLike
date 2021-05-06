@@ -14,12 +14,12 @@ namespace Test_Roguelike.Core.Monsters
         public static Boss Create(int Level)
         {
             Boss boss = new Boss();
-            boss.MaxHealth = 20 + 2 * Level * (Dice.Roll("1D4") + 1);
+            boss.MaxHealth = 20 + 2 * Level * (Dice.Roll("1D4"));
             boss.Health = boss.MaxHealth;
-            boss.PAttack = 4 + (int)Math.Floor(Level / 2.0) * Dice.Roll("1D6");
-            boss.Defense = 2 + (int)Math.Floor(Level / 2.0) * Dice.Roll("1D4");
+            boss.PAttack = 3 + (int)(Level / 2.0) * Dice.Roll("1D6");
+            boss.Defense = (int)Math.Floor(Level / 2.0) * Dice.Roll("1D4");
             boss.Resistance = 0;
-            boss.Agility = 5 + (int)Math.Ceiling(Level / 2.0) * Dice.Roll("1D6");
+            boss.Agility = (int)Math.Ceiling(Level / 2.0) * Dice.Roll("1D6");
             boss.Awareness = 20;
             boss.Symbol = 'B';
             boss.Color = Swatch.PrimaryDarkest;
@@ -31,7 +31,7 @@ namespace Test_Roguelike.Core.Monsters
                 case 1:
                     boss.Name = "Cleopatre";
                     boss.Inventory.Add(new Weapon("Couteau aiguise", 4, 10));
-                    boss.Inventory.Add(new Potion(5, 2, 1, 3, 0, 5));
+                    boss.Inventory.Add(new Potion(5, 7, 1, 3, 0, 5));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
@@ -56,7 +56,7 @@ namespace Test_Roguelike.Core.Monsters
                 case 4:
                     boss.Name = "Catherine II";
                     boss.Inventory.Add(new Weapon("Fleuret de Combat", 9, 40));
-                    boss.Inventory.Add(new Potion(10, 0, 5, 5, 6, Dice.Roll("1D10")));
+                    boss.Inventory.Add(new Potion(25, 0, 5, 5, 6, Dice.Roll("1D10")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     break;
 

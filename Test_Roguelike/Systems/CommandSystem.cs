@@ -146,7 +146,7 @@ namespace Test_Roguelike.Systems
                 StringBuilder defenseMessage = new StringBuilder();
                 if (attacker is Monster)
                     attackMode = 0;
-                int hits = ResolveAttack(attacker, defender, attackMode, attackMessage);
+                int hits = ResolveAttack(attacker, defender, attackMode, attackMessage, out bool isJoke);
 
                 int blocks = ResolveDefense(defender, attacker, hits, attackMessage, defenseMessage);
 

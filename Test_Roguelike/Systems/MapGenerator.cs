@@ -192,8 +192,8 @@ namespace Test_Roguelike.Systems
             int j = 0;
             foreach (var room in _map.Rooms)
             {
-                // Each room has a 80% chance of having monsters
-                if (Dice.Roll("1D10") < 8)
+                // Each room has a 70% chance of having monsters
+                if (Dice.Roll("1D10") < 7)
                 {
                     // Generate between 1 and 4 monsters
                     var numberOfMonsters = Dice.Roll("1D2");
@@ -247,7 +247,7 @@ namespace Test_Roguelike.Systems
         {
             foreach (var room in _map.Rooms)
             {
-                if (Dice.Roll("1D20") < 7)
+                if (Dice.Roll("1D30") < 10)
                 {
                     // Generate between 1 and 4 monsters
                     var numberOfItems = Dice.Roll("1D2");

@@ -20,8 +20,8 @@ namespace Test_Roguelike.Core
         {
             PAttack = 2;
             FAttack = 0;
-            Health = 100;
-            MaxHealth = 100;
+            Health = 65;
+            MaxHealth = 65;
             Awareness = 12;
             Name = "Lilia";
             Color = Colors.Player;
@@ -81,12 +81,13 @@ namespace Test_Roguelike.Core
             statConsole.Print(1, 1, $"Nom:  {Name}", Colors.Text);
             statConsole.Print(1, 2, $"Points de vie:  {Health}/{MaxHealth}", Colors.Text);
 
-            statConsole.Print(1, 3, $"Attaque physique:  {PAttack}", Colors.Text);
+            statConsole.Print(1, 4, $"Attaque physique: {PAttack + Weapon.PAttackBoost}", Colors.Text);
 
-            statConsole.Print(1, 4, $"Defense: {Defense}", Colors.Text);
+            statConsole.Print(1, 6, $"Defense: {Defense}", Colors.Text);
+            statConsole.Print(1, 7, $"Resistance: {Resistance}", Colors.Text);
 
-
-            statConsole.Print(1, 5, $"Agilite: {Agility}", Colors.Text);
+            statConsole.Print(1, 9, $"Agilite: {Agility}", Colors.Text);
+            statConsole.Print(1, 10, $"Vitesse: {Speed}", Colors.Text);
         }
     }
 }
