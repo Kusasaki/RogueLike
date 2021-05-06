@@ -159,7 +159,7 @@ namespace Test_Roguelike.Core
                 var cell = GetCell(x, y);
                 SetCellProperties(x, y, true, cell.IsWalkable, cell.IsExplored);
 
-                Game.Player.Heal(1);
+                Game.Player.Heal((int)(Game._mapLevel/2.0) + 1);
                 
                 Game.MessageLog.Add($"{actor.Name} opened a door");
             }

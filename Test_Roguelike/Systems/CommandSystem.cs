@@ -282,7 +282,7 @@ namespace Test_Roguelike.Systems
                 if(defender is Monster && !isJoke)
                 {
                     if(defender.Health - damage < 0)
-                        defender.Health = (int)(defender.MaxHealth / 2.5);
+                        defender.Health = (int)(defender.MaxHealth / 4);
                     else
                         defender.Health = defender.Health - damage;
                 }
