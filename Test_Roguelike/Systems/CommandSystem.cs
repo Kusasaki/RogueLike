@@ -52,7 +52,7 @@ namespace Test_Roguelike.Systems
             {
                 if (Game.Player.X == cell.X && Game.Player.Y == cell.Y)
                 {
-                    Attack(monster, Game.Player);
+                    Attack(monster, Game.Player, 0);
                 }
             }
         }
@@ -121,51 +121,68 @@ namespace Test_Roguelike.Systems
 
             if (monster != null)
             {
-                Attack(Game.Player, monster);
+                Attack(Game.Player, monster, 1);
                 return true;
             }
 
             return false;
         }
 
-        public void Attack(Actor attacker, Actor defender)
+        public void Attack(Actor attacker, Actor defender, int attackMode)
         {
-            StringBuilder attackMessage = new StringBuilder();
-            StringBuilder defenseMessage = new StringBuilder();
-
-            int hits = ResolveAttack(attacker, defender, attackMessage);
-
-            int blocks = ResolveDefense(defender, attacker, hits, attackMessage, defenseMessage);
-
-            Game.MessageLog.Add(attackMessage.ToString());
-            if (!string.IsNullOrWhiteSpace(defenseMessage.ToString()))
+            if (Game.Player.IsAttacking || attacker is Monster)
             {
-                Game.MessageLog.Add(defenseMessage.ToString());
+                StringBuilder attackMessage = new StringBuilder();
+                StringBuilder defenseMessage = new StringBuilder();
+                if (attacker is Monster)
+                    attackMode = 0;
+                int hits = ResolveAttack(attacker, defender, attackMode, attackMessage);
+
+                int blocks = ResolveDefense(defender, attacker, hits, attackMessage, defenseMessage);
+
+                Game.MessageLog.Add(attackMessage.ToString());
+                if (!string.IsNullOrWhiteSpace(defenseMessage.ToString()))
+                {
+                    Game.MessageLog.Add(defenseMessage.ToString());
+                }
+
+                int damage = hits - blocks;
+
+                ResolveDamage(defender, damage);
+                Game.Player.IsAttacking = false;
             }
-
-            int damage = hits - blocks;
-
-            ResolveDamage(defender, damage);
+            else
+            {
+                Game.Player.IsAttacking = true;
+                Game.Player.Target = defender;
+                Game.MessageLog.Add("[1] Attaquer avec votre arme [2] Faire une blague");
+            }
         }
 
         // The attacker rolls based on his stats to see if he gets any hits
-        private static int ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage)
+        private static int ResolveAttack(Actor attacker, Actor defender, int attackMode, StringBuilder attackMessage)
         {
             int hits = 0;
 
-            attackMessage.AppendFormat("{0} attaque {1}", attacker.Name, defender.Name);
+            attackMessage.AppendFormat("{0} attaque {1} avec {2}", attacker.Name, defender.Name, attackMode);
 
             if (attacker is Player player)
             {
                 if (defender.Health / (defender.MaxHealth * 1.0) <= 0.15)
                 {
-                    if (player.Inventory.OfType<Joke>().Any())
+                    if (attackMode == 1)
+                    {
+                        hits = 0;
+                        Game.MessageLog.Add("Ce n'est pas tres efficace");
+                        defender.Health = (int)(defender.MaxHealth / 3.0);
+                    }
+                    else if (player.Inventory.OfType<Joke>().Any() && attackMode == 2)
                     {
                         hits = 500;
                         Game.MessageLog.Add(player.Inventory.OfType<Joke>().First().Description);
                         player.Inventory.Remove(player.Inventory.OfType<Joke>().First());
                     }
-                    else
+                    else if (!player.Inventory.OfType<Joke>().Any() && attackMode == 2)
                     {
                         hits = 0;
                         Game.MessageLog.Add("AH JE N'AI PLUS DE BLAGUES POUR LES CONJURER !");
@@ -174,7 +191,23 @@ namespace Test_Roguelike.Systems
                 }    
                 else
                 {
-                    hits = player.Weapon.PAttackBoost + player.PAttack;
+                    if (attackMode == 1)
+                    {
+                        hits = 0;
+                    }
+                    
+                    else if (player.Inventory.OfType<Joke>().Any() && attackMode == 2)
+                    {
+                        hits = 0;
+                        Game.MessageLog.Add(player.Inventory.OfType<Joke>().First().Description);
+                        player.Inventory.Remove(player.Inventory.OfType<Joke>().First());
+                    }
+                    else if (!player.Inventory.OfType<Joke>().Any() && attackMode == 2)
+                    {
+                        hits = 0;
+                        Game.MessageLog.Add("AH! Je n'ai plus de blagues!");
+                        Task.Delay(2000);
+                    }
                 }
             } 
 
@@ -204,8 +237,9 @@ namespace Test_Roguelike.Systems
                     blocks = (int)(hits * defender.Resistance / 100.0);
                 else if (defender.Agility >= Dice.Roll("1D100"))
                     blocks = hits;
-                
-                defenseMessage.AppendFormat("{0} bloque ", blocks);
+
+                if(blocks > 0)
+                    defenseMessage.AppendFormat("{0} bloque ", blocks);
             }
             else
             {

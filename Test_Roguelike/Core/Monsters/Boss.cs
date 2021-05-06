@@ -49,7 +49,7 @@ namespace Test_Roguelike.Core.Monsters
 
                 case 4:
                     boss.Name = "Catherine II";
-                    boss.Inventory.Add(new Weapon("Couteau de boucher", 16, 40));
+                    boss.Inventory.Add(new Weapon("Fleuret de Combat", 16, 40));
                     boss.Inventory.Add(new Potion(10, 0, 5, 5, 6, Dice.Roll("1D10")));
                     break;
 

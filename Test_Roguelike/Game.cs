@@ -121,8 +121,26 @@ namespace Test_Roguelike
 
             if (CommandSystem.IsPlayerTurn)
             {
+                if (Game.Player.IsAttacking)
+                {
+                    _renderRequired = true;
+                }
+
                 if (keyPress != null)
                 {
+                    if (Player.IsAttacking)
+                    {
+                        if (keyPress.Key == RLKey.Number1)
+                        {
+                            Game.CommandSystem.Attack(Game.Player, Game.Player.Target, 1);
+                            didPlayerAct = true;
+                        }
+                        else if (keyPress.Key == RLKey.Number2)
+                        {
+                            Game.CommandSystem.Attack(Game.Player, Game.Player.Target, 2);
+                            didPlayerAct = true;
+                        }
+                    }
                     if (keyPress.Key == RLKey.Up)
                     {
                         didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
@@ -162,6 +180,7 @@ namespace Test_Roguelike
                     _renderRequired = true;
                     CommandSystem.EndPlayerTurn();
                 }
+                
             }
             else
             {

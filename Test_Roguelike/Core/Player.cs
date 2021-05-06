@@ -12,7 +12,8 @@ namespace Test_Roguelike.Core
 {
     public class Player : Actor
     {
-        public bool Riposte { get; set; }
+        public bool IsAttacking { get; set; }
+        public Actor Target { get; set; }
 
         public Player()
         {
@@ -31,7 +32,7 @@ namespace Test_Roguelike.Core
             Inventory = new List<Item>();
             Inventory.Add(new Joke(3));
             Inventory.Add(new Joke(2));
-            Weapon = new Weapon("Eplucheur de Legumes", 0, 1);
+            Weapon = new Weapon("Eplucheur de Legumes", 0, 100);
         }
 
         public bool GetKey(int Level)
