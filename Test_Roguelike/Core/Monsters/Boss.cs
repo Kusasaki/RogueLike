@@ -30,7 +30,7 @@ namespace Test_Roguelike.Core.Monsters
             {
                 case 1:
                     boss.Name = "Cleopatre";
-                    boss.Inventory.Add(new Weapon("Couteau aiguise", 3, 10));
+                    boss.Inventory.Add(new Weapon("Couteau aiguise", 4, 10));
                     boss.Inventory.Add(new Potion(5, 2, 1, 3, 0, 5));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));

@@ -48,7 +48,7 @@ namespace Test_Roguelike.Core.Behaviours
                     // The monster can see the player, but cannot find a path to him
                     // This could be due to other monsters blocking the way
                     // Add a message to the message log that the monster is waiting
-                    Game.MessageLog.Add($"{monster.Name} waits for a turn");
+                    Game.MessageLog.Add($"{monster.Name} bug");
                 }
 
                 // Don't forget to set the walkable status back to false

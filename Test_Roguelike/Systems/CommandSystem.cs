@@ -172,10 +172,10 @@ namespace Test_Roguelike.Systems
         }
 
         // The attacker rolls based on his stats to see if he gets any hits
-        private static int ResolveAttack(Actor attacker, Actor defender, int attackMode, StringBuilder attackMessage)
+        private static int ResolveAttack(Actor attacker, Actor defender, int attackMode, StringBuilder attackMessage, out bool isJoke)
         {
             int hits = 0;
-
+            isJoke = false;
             attackMessage.AppendFormat("{0} attaque {1}", attacker.Name, defender.Name, attackMode);
 
             if (attacker is Player player)

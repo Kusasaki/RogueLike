@@ -192,11 +192,11 @@ namespace Test_Roguelike.Systems
             int j = 0;
             foreach (var room in _map.Rooms)
             {
-                // Each room has a 70% chance of having monsters
-                if (Dice.Roll("1D10") < 7)
+                // Each room has a 80% chance of having monsters
+                if (Dice.Roll("1D10") < 8)
                 {
                     // Generate between 1 and 4 monsters
-                    var numberOfMonsters = Dice.Roll("1D3");
+                    var numberOfMonsters = Dice.Roll("1D2");
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         // Find a random walkable location in the room to place the monster
@@ -247,8 +247,7 @@ namespace Test_Roguelike.Systems
         {
             foreach (var room in _map.Rooms)
             {
-                // Each room has a 70% chance of having monsters
-                if (Dice.Roll("1D20") < 5)
+                if (Dice.Roll("1D20") < 7)
                 {
                     // Generate between 1 and 4 monsters
                     var numberOfItems = Dice.Roll("1D2");
@@ -260,27 +259,25 @@ namespace Test_Roguelike.Systems
                         // In that case skip creating the monster
                         if (randomRoomLocation != null)
                         {
-                            // Temporarily hard code this monster to be created at level 1
+                            
                             var option = Dice.Roll("1D2");
                             Potion potion;
 
                             switch (option)
                             {
                                 case 1:
-                                    potion = new Potion("Health", Dice.Roll("1D3"));
+                                    potion = new Potion("Health", Dice.Roll("1D4"));
                                     potion.X = randomRoomLocation.X;
                                     potion.Y = randomRoomLocation.Y;
                                     _map.Items.Add(potion);
                                     break;
                                 case 2:
-                                    potion = new Potion("Health", Dice.Roll("1D6"));
+                                    potion = new Potion("Health", Dice.Roll("1D8"));
                                     potion.X = randomRoomLocation.X;
                                     potion.Y = randomRoomLocation.Y;
                                     _map.Items.Add(potion);
                                     break;
                             }
-
-                            
                         }
                     }
                 }

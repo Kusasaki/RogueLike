@@ -20,14 +20,14 @@ namespace Test_Roguelike.Core
         {
             PAttack = 2;
             FAttack = 0;
-            Health = 50;
-            MaxHealth = 50;
+            Health = 100;
+            MaxHealth = 100;
             Awareness = 12;
             Name = "Lilia";
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
-            Speed = 2;
+            Speed = 12;
             X = 10;
             Y = 10;
             Inventory = new List<Item>();
