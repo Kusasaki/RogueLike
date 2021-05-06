@@ -190,7 +190,7 @@ namespace Test_Roguelike.Systems
             if (attacker is Player player)
             {
                 //Un joueur ne peux pas tuer un monstre avec une attaque physique, il doit l'achever avec une blague
-                if (defender.Health / (defender.MaxHealth * 1.0) <= 0.2)
+                if (defender.Health / (defender.MaxHealth * 1.0) <= 0.3)
                 {
                     if (attackMode == 1)
                     {

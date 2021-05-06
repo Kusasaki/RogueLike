@@ -18,10 +18,10 @@ namespace Test_Roguelike.Core
 
         public Player()
         {
-            PAttack = 2;
+            PAttack = 3;
             FAttack = 0;
-            Health = 65;
-            MaxHealth = 65;
+            Health = 75;
+            MaxHealth = 75;
             Awareness = 12;
             Name = "Lilia";
             Color = Colors.Player;
@@ -40,7 +40,7 @@ namespace Test_Roguelike.Core
         //Verifie si le joueur possede la cle du niveau en parametre
         public bool GetKey(int Level)
         {
-            if (Inventory.OfType<Key>().Any(k => k.Level == Game._mapLevel))
+            if (Inventory.OfType<Key>().Any(k => k.Level == Level))
                 return true;
             else
                 return false;

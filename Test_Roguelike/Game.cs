@@ -62,7 +62,7 @@ namespace Test_Roguelike
 
             // The title will appear at the top of the console window 
             // also include the seed used to generate the level
-            string consoleTitle = $"RoguePépéMémé - Level 1 ";
+            string consoleTitle = $"UChronia - Level 1 ";
 
             // This must be the exact name of the bitmap font file we are using or it will error.
             string fontFileName = "terminal8x8.png";
