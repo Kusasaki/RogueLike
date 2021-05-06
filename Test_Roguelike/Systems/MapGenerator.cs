@@ -271,13 +271,13 @@ namespace Test_Roguelike.Systems
                             switch (option)
                             {
                                 case 1:
-                                    potion = new Potion("Health", Dice.Roll("1D4") + _level);
+                                    potion = new Potion("Health", Dice.Roll("1D6") + _level);
                                     potion.X = randomRoomLocation.X;
                                     potion.Y = randomRoomLocation.Y;
                                     _map.Items.Add(potion);
                                     break;
                                 case 2:
-                                    potion = new Potion("Health", Dice.Roll("1D8") + 2 * _level);
+                                    potion = new Potion("Health", Dice.Roll("1D10") + 2 * _level);
                                     potion.X = randomRoomLocation.X;
                                     potion.Y = randomRoomLocation.Y;
                                     _map.Items.Add(potion);
