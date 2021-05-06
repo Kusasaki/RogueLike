@@ -33,9 +33,9 @@ namespace Test_Roguelike.Core.Monsters
 
         private static string CreateName()
         {
-            string
+            string ch = " ";
 
-            return char;
+            return ch;
         }
     }
 }
