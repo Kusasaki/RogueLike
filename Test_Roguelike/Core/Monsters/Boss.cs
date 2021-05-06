@@ -16,7 +16,7 @@ namespace Test_Roguelike.Core.Monsters
             Boss boss = new Boss();
             boss.MaxHealth = 20 + 2 * Level * (Dice.Roll("1D4"));
             boss.Health = boss.MaxHealth;
-            boss.PAttack = 3 + (int)(Level / 2.0) * Dice.Roll("1D6");
+            boss.PAttack = 3 + (int)(Level / 1.5) * Dice.Roll("1D4");
             boss.Defense = (int)Math.Floor(Level / 2.0) * Dice.Roll("1D4");
             boss.Resistance = 0;
             boss.Agility = (int)Math.Ceiling(Level / 2.0) * Dice.Roll("1D6");

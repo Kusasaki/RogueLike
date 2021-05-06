@@ -15,7 +15,7 @@ namespace Test_Roguelike.Core.Monsters
         public static Ghost Create(int Level)
         {
             Ghost ghost = new Ghost();
-            ghost.Name = CreateName();
+            ghost.Name = ghost.CreateName();
             ghost.MaxHealth = 14 + Level * Dice.Roll("1D4");
             ghost.Health = ghost.MaxHealth;
             ghost.PAttack = 1;
@@ -31,7 +31,7 @@ namespace Test_Roguelike.Core.Monsters
             return ghost;
         }
 
-        private static string CreateName()
+        private string CreateName()
         {
             string[] names = new string[] { "De Vinci",
                                             "Maxwell",

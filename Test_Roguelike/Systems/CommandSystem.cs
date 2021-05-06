@@ -159,7 +159,7 @@ namespace Test_Roguelike.Systems
 
                 int damage = hits - blocks;
 
-                ResolveDamage(defender, damage);
+                ResolveDamage(defender, damage, isJoke);
                 Game.Player.IsAttacking = false;
             }
             else
@@ -184,21 +184,18 @@ namespace Test_Roguelike.Systems
                 {
                     if (attackMode == 1)
                     {
-                        hits = 0;
                         Game.MessageLog.Add("Ce n'est pas tres efficace");
-                        defender.Health = (int)(defender.MaxHealth / 3.0);
                     }
                     else if (player.Inventory.OfType<Joke>().Any() && attackMode == 2)
                     {
                         hits = 500;
+                        isJoke = true;
                         Game.MessageLog.Add(player.Inventory.OfType<Joke>().First().Description);
                         player.Inventory.Remove(player.Inventory.OfType<Joke>().First());
                     }
                     else if (!player.Inventory.OfType<Joke>().Any() && attackMode == 2)
                     {
-                        hits = 0;
                         Game.MessageLog.Add("AH JE N'AI PLUS DE BLAGUES POUR LES CONJURER !");
-                        Task.Delay(2000);
                     }
                 }    
                 else
@@ -210,15 +207,12 @@ namespace Test_Roguelike.Systems
                     
                     else if (player.Inventory.OfType<Joke>().Any() && attackMode == 2)
                     {
-                        hits = 0;
                         Game.MessageLog.Add(player.Inventory.OfType<Joke>().First().Description);
                         player.Inventory.Remove(player.Inventory.OfType<Joke>().First());
                     }
                     else if (!player.Inventory.OfType<Joke>().Any() && attackMode == 2)
                     {
-                        hits = 0;
                         Game.MessageLog.Add("AH! Je n'ai plus de blagues!");
-                        Task.Delay(2000);
                     }
                 }
             } 
@@ -257,18 +251,26 @@ namespace Test_Roguelike.Systems
             }
             else
             {
-                attackMessage.Append("et n'inflige pas de degats.");
+                attackMessage.Append(" et n'inflige pas de degats.");
             }
 
             return blocks;
         }
 
         // Apply any damage that wasn't blocked to the defender
-        private static void ResolveDamage(Actor defender, int damage)
+        private static void ResolveDamage(Actor defender, int damage, bool isJoke)
         {
             if (damage > 0)
             {
-                defender.Health = defender.Health - damage;
+                if(defender is Monster && !isJoke)
+                {
+                    if(defender.Health - damage < 0)
+                        defender.Health = (int)(defender.MaxHealth / 2.5);
+                    else
+                        defender.Health = defender.Health - damage;
+                }
+                else
+                    defender.Health = defender.Health - damage;
 
                 Game.MessageLog.Add($"  {defender.Name} a subi {damage} points de degat");
 
