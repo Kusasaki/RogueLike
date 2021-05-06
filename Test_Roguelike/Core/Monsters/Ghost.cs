@@ -16,7 +16,7 @@ namespace Test_Roguelike.Core.Monsters
         {
             Ghost ghost = new Ghost();
             ghost.Name = "Jean Bon Bheur";
-            ghost.MaxHealth = 14 + (int)Math.Ceiling(Level / 2.0) * Dice.Roll("1D4");
+            ghost.MaxHealth = 14 + Level * Dice.Roll("1D4");
             ghost.Health = ghost.MaxHealth;
             ghost.PAttack = 1;
             ghost.FAttack = 2 + (int)Math.Floor(Level / 2.0) * Dice.Roll("1D4");
@@ -29,6 +29,13 @@ namespace Test_Roguelike.Core.Monsters
             ghost.Speed = 25 - (int)Math.Ceiling(Level / 2.0) * (Dice.Roll("1D2") - 1);
             ghost.Inventory = new List<Item>(9);
             return ghost;
+        }
+
+        private static string CreateName()
+        {
+            string
+
+            return char;
         }
     }
 }

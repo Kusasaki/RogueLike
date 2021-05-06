@@ -180,7 +180,7 @@ namespace Test_Roguelike.Systems
 
             if (attacker is Player player)
             {
-                if (defender.Health / (defender.MaxHealth * 1.0) <= 0.15)
+                if (defender.Health / (defender.MaxHealth * 1.0) <= 0.2)
                 {
                     if (attackMode == 1)
                     {

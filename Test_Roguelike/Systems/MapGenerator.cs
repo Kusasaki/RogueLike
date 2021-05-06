@@ -206,7 +206,7 @@ namespace Test_Roguelike.Systems
                         if (randomRoomLocation != null)
                         {
                             var monster = Ghost.Create(_level);
-                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 2) || (!keyCreated && j == (_map.Rooms.Count - 1)) && _level != 5)
+                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 2) || (!keyCreated && j == (_map.Rooms.Count - 1)))
                             {
                                 monster.Inventory.Add(new Key(_level));
                                 keyCreated = true;

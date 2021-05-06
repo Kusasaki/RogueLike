@@ -52,7 +52,7 @@ namespace Test_Roguelike.Core.Items
                     break;
 
                 case 4: //Toto
-                    blagues.Add("– Toto si je te donne 50 gâteaux et tu en manges 48 tu as donc ? – Mal au ventre");
+                    blagues.Add("– Toto si je te donne 50 gateaux et tu en manges 48 tu as donc ? – Mal au ventre");
                     blagues.Add("– Toto si tu as 10 bonbons et que Mathieu t'en prends un combien il t'en reste ? – 10 bonbons et un coup pour Mathieu");
                     blagues.Add("– Toto 3 et 3 ça fait quoi ? – Match nul monsieur! ");
                     blagues.Add("– Connais-tu la blague de toto en Amerique ? – Non ? – Moi non plus il n'y avait plus de place dans l'avion!");
