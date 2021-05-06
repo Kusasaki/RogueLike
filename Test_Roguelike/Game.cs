@@ -7,6 +7,7 @@ using RLNET;
 using RogueSharp;
 using RogueSharp.Random;
 using Test_Roguelike.Core;
+using Test_Roguelike.Core.Items;
 using Test_Roguelike.Systems;
 
 namespace Test_Roguelike
@@ -119,7 +120,26 @@ namespace Test_Roguelike
             bool didPlayerAct = false;
             RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
 
-            if (CommandSystem.IsPlayerTurn)
+            if (Game.Player.IsDead)
+            {
+                Player = null;
+                MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 1);
+                DungeonMap = mapGenerator.CreateMap();
+                MessageLog = new MessageLog();
+                CommandSystem = new CommandSystem();
+                _rootConsole.Title = $"RoguePépéMémé - Level 1";
+                didPlayerAct = true;
+            }
+            else if (Player.Inventory.OfType<Machine>().Any())
+            {
+                MessageLog.Add(" ");
+                MessageLog.Add("Vous avez detruit la machine de la mort qui TUE !");
+                MessageLog.Add("Le regne des fantomes trop serieux est termine");
+                MessageLog.Add("Place a la fête et a la boutade !");
+                MessageLog.Add("Vous avez gagne !!! BRAVA");
+                _renderRequired = true;
+            }
+            else if (CommandSystem.IsPlayerTurn)
             {
                 if (Game.Player.IsAttacking)
                 {
@@ -165,11 +185,12 @@ namespace Test_Roguelike
                     {
                         if (DungeonMap.CanMoveDownToNextLevel())
                         {
+                            
                             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, ++_mapLevel);
                             DungeonMap = mapGenerator.CreateMap();
                             MessageLog = new MessageLog();
                             CommandSystem = new CommandSystem();
-                            _rootConsole.Title = $"RoguePépéMémé - Level {_mapLevel}";
+                            _rootConsole.Title = $"UChronia - Level {_mapLevel}";
                             didPlayerAct = true;
                         }
                     }
@@ -223,6 +244,5 @@ namespace Test_Roguelike
                 _renderRequired = false;
             }
         }
-
     }
 }

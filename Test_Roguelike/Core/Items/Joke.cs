@@ -8,13 +8,11 @@ namespace Test_Roguelike.Core.Items
 {
     public class Joke : Item
     {
-        public int Damage { get; }
         public string Description { get; }
         public string Category { get; }
 
-        public Joke(int dmg, string desc, string category)
+        public Joke(string desc, string category)
         {
-            Damage = dmg;
             Category = category;
             Description = desc;
             Symbol = 'J';
@@ -23,7 +21,6 @@ namespace Test_Roguelike.Core.Items
         public Joke(int category)
         {
             Symbol = 'J';
-            Damage = 8; //FIXME
             List<string> blagues = new List<string>();
             switch (category)
             {

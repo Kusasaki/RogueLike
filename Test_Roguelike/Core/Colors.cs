@@ -9,27 +9,27 @@ namespace Test_Roguelike.Core
 {
     public class Colors
     {
-        public static RLColor FloorBackground = Swatch.Primary; //couleur des points
-        public static RLColor Floor = Swatch.ComplementDarker; //couleur du sol
-        public static RLColor FloorBackgroundFov = Swatch.AlternateLighter;
-        public static RLColor FloorFov = Swatch.AlternateLightest;
+        public static RLColor FloorBackground = Swatch.Primary;
+        public static RLColor Floor = Swatch.Secondary3Lighter;
+        public static RLColor FloorBackgroundFov = Swatch.Primary2;
+        public static RLColor FloorFov = Swatch.Primary2Lighter;
 
-        public static RLColor WallBackground = Swatch.Primary; //couleur du fond derrière le donjon
-        public static RLColor Wall = Swatch.ComplementDarkest; //couleur des murs
-        public static RLColor WallBackgroundFov = Swatch.ComplementLighter;
-        public static RLColor WallFov = Swatch.ComplementLightest;
+        public static RLColor WallBackground = Swatch.Secondary3Lighter;
+        public static RLColor Wall = Swatch.Secondary3;
+        public static RLColor WallBackgroundFov = Swatch.Primary2Darkest;
+        public static RLColor WallFov = Swatch.Primary2Darker;
 
-        public static RLColor Door = RLColor.White;
-        public static RLColor DoorBackground = Swatch.ComplementDarker;
-        public static RLColor DoorBackgroundFov = Swatch.AlternateLighter;
-        public static RLColor DoorFov = Swatch.AlternateLightest;
+        public static RLColor Door = Swatch.ComplementDarker;
+        public static RLColor DoorBackground = Swatch.Primary;
+        public static RLColor DoorBackgroundFov = Swatch.Complement;
+        public static RLColor DoorFov = Swatch.ComplementLighter;
 
         public static RLColor Text = RLColor.White;
         public static RLColor TextHeading = RLColor.White;
 
-        public static RLColor Player = RLColor.LightCyan;
+        public static RLColor Player = Swatch.Primary;
 
-        public static RLColor GhostColor = RLColor.White;
+        public static RLColor GhostColor = RLColor.Black;
 
 
     }

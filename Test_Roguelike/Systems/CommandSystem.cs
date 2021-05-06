@@ -28,7 +28,7 @@ namespace Test_Roguelike.Systems
             if (scheduleable is Player)
             {
                 IsPlayerTurn = true;
-                if (Game.Player.Health > 0)
+                if (Game.Player.Health > -5)
                     Game.SchedulingSystem.Add(Game.Player);
                 
             }
@@ -96,13 +96,18 @@ namespace Test_Roguelike.Systems
             if (item != null)
             {
                 //Inventory
-                if(item is Weapon weapon)
+                if (item is Weapon weapon)
                 {
                     Game.Player.Weapon = weapon;
                 }
-                else if(item is Potion potion)
+                else if (item is Potion potion)
                 {
                     Game.Player.Consume(potion);
+                }
+                else if (item is Machine machine && Game.Player.Inventory.OfType<Key>().Any(k => k.Level == 10))
+                {
+                    machine.Destroyed = true;
+                    Game.Player.Inventory.Add(item);
                 }
                 else
                 {
@@ -143,7 +148,8 @@ namespace Test_Roguelike.Systems
                 Game.MessageLog.Add(attackMessage.ToString());
                 if (!string.IsNullOrWhiteSpace(defenseMessage.ToString()))
                 {
-                    Game.MessageLog.Add(defenseMessage.ToString());
+                    Game.MessageLog.Add(defenseMessage.ToString()); 
+                    Game.MessageLog.Add(" ");
                 }
 
                 int damage = hits - blocks;
@@ -155,6 +161,7 @@ namespace Test_Roguelike.Systems
             {
                 Game.Player.IsAttacking = true;
                 Game.Player.Target = defender;
+                Game.MessageLog.Add(" ");
                 Game.MessageLog.Add("[1] Attaquer avec votre arme [2] Faire une blague");
             }
         }
@@ -164,7 +171,7 @@ namespace Test_Roguelike.Systems
         {
             int hits = 0;
 
-            attackMessage.AppendFormat("{0} attaque {1} avec {2}", attacker.Name, defender.Name, attackMode);
+            attackMessage.AppendFormat("{0} attaque {1}", attacker.Name, defender.Name, attackMode);
 
             if (attacker is Player player)
             {
@@ -193,7 +200,7 @@ namespace Test_Roguelike.Systems
                 {
                     if (attackMode == 1)
                     {
-                        hits = 0;
+                        hits = player.PAttack + player.Weapon.PAttackBoost;
                     }
                     
                     else if (player.Inventory.OfType<Joke>().Any() && attackMode == 2)
@@ -274,6 +281,7 @@ namespace Test_Roguelike.Systems
         {
             if (defender is Player)
             {
+                Game.Player.IsDead = true;
                 Game.MessageLog.Add($"  {defender.Name} est mort, VOUS AVEZ PERDUUUUUUUU !");
             }
             else if (defender is Monster monster)

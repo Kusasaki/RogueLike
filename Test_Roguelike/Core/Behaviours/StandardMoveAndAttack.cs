@@ -23,7 +23,7 @@ namespace Test_Roguelike.Core.Behaviours
                 monsterFov.ComputeFov(monster.X, monster.Y, monster.Awareness, true);
                 if (monsterFov.IsInFov(player.X, player.Y))
                 {
-                    Game.MessageLog.Add($"{monster.Name} is eager to fight {player.Name}");
+                    Game.MessageLog.Add($"{monster.Name} veut votre mort");
                     monster.TurnsAlerted = 1;
                 }
             }
@@ -66,7 +66,7 @@ namespace Test_Roguelike.Core.Behaviours
                     }
                     catch (NoMoreStepsException)
                     {
-                        Game.MessageLog.Add($"{monster.Name} growls in frustration");
+                        Game.MessageLog.Add($"{monster.Name} est frustre");
                     }
                 }
 

@@ -14,6 +14,7 @@ namespace Test_Roguelike.Core
     {
         public bool IsAttacking { get; set; }
         public Actor Target { get; set; }
+        public bool IsDead { get; set; }
 
         public Player()
         {
@@ -26,13 +27,14 @@ namespace Test_Roguelike.Core
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
-            Speed = 14;
+            Speed = 2;
             X = 10;
             Y = 10;
             Inventory = new List<Item>();
             Inventory.Add(new Joke(3));
             Inventory.Add(new Joke(2));
             Weapon = new Weapon("Eplucheur de Legumes", 0, 100);
+            IsDead = false;
         }
 
         public bool GetKey(int Level)

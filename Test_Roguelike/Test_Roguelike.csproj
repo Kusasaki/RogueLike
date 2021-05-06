@@ -61,6 +61,7 @@
     <Compile Include="Core\Item.cs" />
     <Compile Include="Core\Items\Joke.cs" />
     <Compile Include="Core\Items\Key.cs" />
+    <Compile Include="Core\Items\Machine.cs" />
     <Compile Include="Core\Items\Potion.cs" />
     <Compile Include="Core\Items\Weapon.cs" />
     <Compile Include="Core\Monster.cs" />

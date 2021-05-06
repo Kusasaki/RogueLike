@@ -103,6 +103,10 @@ namespace Test_Roguelike.Systems
             joke.X = 8;
             joke.Y = 8;
             _map.Items.Add(joke);
+            var mac = new Machine();
+            mac.X = 9;
+            mac.Y = 8;
+            _map.Items.Add(mac);
             CreateStairs();
             PlacePlayer();
             PlaceBoss();
@@ -202,9 +206,8 @@ namespace Test_Roguelike.Systems
                         // In that case skip creating the monster
                         if (randomRoomLocation != null)
                         {
-                            // Temporarily hard code this monster to be created at level 1
                             var monster = Ghost.Create(_level);
-                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 2) || (!keyCreated && j == (_map.Rooms.Count - 1)))
+                            if ((!keyCreated && j != 0 && Dice.Roll("1D10") < 2) || (!keyCreated && j == (_map.Rooms.Count - 1)) && _level != 5)
                             {
                                 monster.Inventory.Add(new Key(_level));
                                 keyCreated = true;

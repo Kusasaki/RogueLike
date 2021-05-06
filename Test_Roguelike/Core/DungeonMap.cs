@@ -97,7 +97,7 @@ namespace Test_Roguelike.Core
                 }
                 else
                 {
-                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.Floor, '#');
+                    console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, '#');
                 }
 
 

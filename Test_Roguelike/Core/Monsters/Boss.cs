@@ -55,6 +55,7 @@ namespace Test_Roguelike.Core.Monsters
 
                 case 5:
                     boss.Name = "Douglas MacArthur";
+                    boss.Inventory.Add(new Key(10));
                     break;
             }
             
