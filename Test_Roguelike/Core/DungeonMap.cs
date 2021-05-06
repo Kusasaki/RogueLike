@@ -10,7 +10,7 @@ using Test_Roguelike.Core.Items;
 
 namespace Test_Roguelike.Core
 {
-    // Our custom DungeonMap class extends the base RogueSharp Map class
+    //Map est une classe de RogueSharp
     public class DungeonMap : Map
     {
         public List<Rectangle> Rooms;
@@ -29,37 +29,37 @@ namespace Test_Roguelike.Core
             Items = new List<Item>();
         }
 
-        // The Draw method will be called each time the map is updated
-        // It will render all of the symbols/colors for each cell to the map sub console
         public void Draw(RLConsole mapConsole, RLConsole statConsole)
         {
             mapConsole.Clear();
+            //On dessine la carte
             foreach (Cell cell in GetAllCells())
             {
                 SetConsoleSymbolForCell(mapConsole, cell);
             }
+            //On dessine les portes
             foreach (Door door in Doors)
             {
                 door.Draw(mapConsole, this);
             }
+            //On dessine les items
             foreach (Item item in Items)
             {
                 item.Draw(mapConsole, this);
             }
+            //On dessine l'ascenseur
             StairsUp.Draw(mapConsole, this);
             if (StairsDown != null)
+            {
                 StairsDown.Draw(mapConsole, this);
-            // Keep an index so we know which position to draw monster stats at
+            }
             int i = 0;
-
-            // Iterate through each monster on the map and draw it after drawing the Cells
+            //On dessine les monstres
             foreach (Monster monster in _monsters)
             {
                 monster.Draw(mapConsole, this);
-                // When the monster is in the field-of-view also draw their stats
                 if (IsInFov(monster.X, monster.Y))
                 {
-                    // Pass in the index to DrawStats and increment it afterwards
                     monster.DrawStats(statConsole, i);
                     i++;
                 }
@@ -68,7 +68,8 @@ namespace Test_Roguelike.Core
 
         private void SetConsoleSymbolForCell(RLConsole console, Cell cell)
         {
-            // When we haven't explored a cell yet, we don't want to draw anything
+            //concerne les murs
+            //Si un mur n'a pas encore été dans le champ de vision, il est juste entièrement noir, sans symbole
             if (!cell.IsExplored)
             {
                 return;
@@ -77,8 +78,6 @@ namespace Test_Roguelike.Core
             // Map niveau
             if (IsInFov(cell.X, cell.Y))
             {
-                // Choose the symbol to draw based on if the cell is walkable or not
-                // '.' for floor and '#' for walls
                 if (cell.IsWalkable)
                 {
                     console.Set(cell.X, cell.Y, Colors.FloorFov, Colors.FloorBackgroundFov, '.');
@@ -88,7 +87,6 @@ namespace Test_Roguelike.Core
                     console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, '#');
                 }
             }
-            // When a cell is outside of the field of view draw it with darker colors
             else
             {
                 if (cell.IsWalkable)
@@ -104,13 +102,11 @@ namespace Test_Roguelike.Core
             }
         }
 
-        // This method will be called any time we move the player to update field-of-view
+        //Met a jour le champ de vision du joueur selon se position quand il se deplace ou qu'un objet rentre dans son champ de vision
         public void UpdatePlayerFieldOfView()
         {
             Player player = Game.Player;
-            // Compute the field-of-view based on the player's location and awareness
             ComputeFov(player.X, player.Y, player.Awareness, true);
-            // Mark all cells in field-of-view as having been explored
             foreach (Cell cell in GetAllCells())
             {
                 if (IsInFov(cell.X, cell.Y))
@@ -120,22 +116,17 @@ namespace Test_Roguelike.Core
             }
         }
 
-        // Returns true when able to place the Actor on the cell or false otherwise
+        //Fait en sorte qu'un acteur puisse se deplacer sur une case et qu'on ne puisse pas le traversser
         public bool SetActorPosition(Actor actor, int x, int y)
         {
-            // Only allow actor placement if the cell is walkable
             if (GetCell(x, y).IsWalkable)
             {
-                // The cell the actor was previously on is now walkable
                 SetIsWalkable(actor.X, actor.Y, true);
-                // Update the actor's position
                 actor.X = x;
                 actor.Y = y;
-                // The new cell the actor is on is now not walkable
                 SetIsWalkable(actor.X, actor.Y, false);
-                // Try to open a door if one exists here
+                //S'il le joueur est sur une porte, il l'ouvre
                 OpenDoor(actor, x, y);
-                // Don't forget to update the field of view if we just repositioned the player
                 if (actor is Player)
                 {
                     UpdatePlayerFieldOfView();
@@ -145,20 +136,20 @@ namespace Test_Roguelike.Core
             return false;
         }
 
-        // A helper method for setting the IsWalkable property on a Cell
+        //Pour factoriser le code
         public void SetIsWalkable(int x, int y, bool isWalkable)
         {
             Cell cell = (Cell)GetCell(x, y);
             SetCellProperties(cell.X, cell.Y, cell.IsTransparent, isWalkable, cell.IsExplored);
         }
 
-        // Return the door at the x,y position or null if one is not found.
+        //Permet de savoir si une porte existe a cette position
         public Door GetDoor(int x, int y)
         {
             return Doors.SingleOrDefault(d => d.X == x && d.Y == y);
         }
 
-        // The actor opens the door located at the x,y position
+        //Met la porte en position ouverte, soigne le joueur -> Temps de repos et permet une meilleure survie et promeut l'exploration des salles
         private void OpenDoor(Actor actor, int x, int y)
         {
             Door door = GetDoor(x, y);
@@ -166,7 +157,6 @@ namespace Test_Roguelike.Core
             {
                 door.IsOpen = true;
                 var cell = GetCell(x, y);
-                // Once the door is opened it should be marked as transparent and no longer block field-of-view
                 SetCellProperties(x, y, true, cell.IsWalkable, cell.IsExplored);
 
                 Game.Player.Heal((int)(Game.Player.MaxHealth * 6 / 100.0));
@@ -175,6 +165,7 @@ namespace Test_Roguelike.Core
             }
         }
 
+        //Verifie si le joueur a la cle du niveau et l'autorise a changer de niveau
         public bool CanMoveDownToNextLevel()
         {
             Player player = Game.Player;
@@ -191,6 +182,7 @@ namespace Test_Roguelike.Core
             }
         }
 
+        //Ajoute le joueur sur la carte et dans l'emploi du temps
         public void AddPlayer(Player player)
         {
             Game.Player = player;
@@ -200,24 +192,28 @@ namespace Test_Roguelike.Core
             Game.SchedulingSystem.Add(player);
         }
 
+        //Permet le retrait d'un item de la carte
         public void RemoveItem(Item item)
         {
             Items.Remove(item);
         }
 
+        //Permet de connaitre l'item sur une certaine case
         public Item GetItemAt(int x, int y)
         {
             return Items.FirstOrDefault(i => i.X == x && i.Y == y);
         }
 
+        //Ajoute le monstre sur la carte et dans l'emploi du temps
         public void AddMonster(Monster monster)
         {
             _monsters.Add(monster);
-            // After adding the monster to the map make sure to make the cell not walkable
+            // Fait en sorte qu'on ne soit pas sur la meme case que le monstre
             SetIsWalkable(monster.X, monster.Y, false);
             Game.SchedulingSystem.Add(monster);
         }
 
+        //Eneleve un monstre de la carte et de l'edt
         public void RemoveMonster(Monster monster)
         {
             _monsters.Remove(monster);
@@ -226,13 +222,14 @@ namespace Test_Roguelike.Core
             Game.SchedulingSystem.Remove(monster);
         }
 
+        //Renvoie le monstre sur la case x,y
         public Monster GetMonsterAt(int x, int y)
         {
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
         }
 
 
-        // Look for a random location in the room that is walkable.
+        // Renvoie une case sur laquelle on peut marcher dans la salle
         public Point GetRandomWalkableLocationInRoom(Rectangle room)
         {
             if (DoesRoomHaveWalkableSpace(room))
@@ -248,11 +245,11 @@ namespace Test_Roguelike.Core
                 }
             }
 
-            // If we didn't find a walkable location in the room return null
+            // Si on ne trouve pas, on renvoit ce point
             return new Point(0,0);
         }
 
-        // Iterate through each Cell in the room and return true if any are walkable
+        //Est ce qu'il y au moins une case sur laquelle on peut marcher
         public bool DoesRoomHaveWalkableSpace(Rectangle room)
         {
             for (int x = 1; x <= room.Width - 2; x++)

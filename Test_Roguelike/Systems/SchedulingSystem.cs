@@ -12,6 +12,7 @@ namespace Test_Roguelike.Systems
 {
     public class SchedulingSystem
     {
+        //Creation d'un emploi du temps sur le modele roguesharp
         private int _time;
         private readonly SortedDictionary<int, List<IScheduleable>> _scheduleables;
 
@@ -21,8 +22,7 @@ namespace Test_Roguelike.Systems
             _scheduleables = new SortedDictionary<int, List<IScheduleable>>();
         }
 
-        // Add a new object to the schedule 
-        // Place it at the current time plus the object's Time property.
+        // Ajout d'un objet à la liste selon son "horaire" d'activité -> il pourra agir
         public void Add(IScheduleable scheduleable)
         {
             int key = _time + scheduleable.Time;
@@ -33,8 +33,7 @@ namespace Test_Roguelike.Systems
             _scheduleables[key].Add(scheduleable);
         }
 
-        // Remove a specific object from the schedule.
-        // Useful for when an monster is killed to remove it before it's action comes up again.
+        // Enleve un acteur de l'ordre des tours -> gestions des morts
         public void Remove(IScheduleable scheduleable)
         {
             KeyValuePair<int, List<IScheduleable>> scheduleableListFound
@@ -58,7 +57,8 @@ namespace Test_Roguelike.Systems
             }
         }
 
-        // Get the next object whose turn it is from the schedule. Advance time if necessary
+        // Retourne le premier acteur de la liste, l'en eleve pur qu'il ne rejoue pas de suite  
+        //et fait avancer le temps si necessaire pour avancer la partie et assuerer la cohérence des timescodes en key.
         public IScheduleable Get()
         {
             var firstScheduleableGroup = _scheduleables.First();
@@ -68,13 +68,13 @@ namespace Test_Roguelike.Systems
             return firstScheduleable;
         }
 
-        // Get the current time (turn) for the schedule
+        // Retourne l'"horaire" de l'horloge 
         public int GetTime()
         {
             return _time;
         }
 
-        // Reset the time and clear out the schedule
+        // Remet à zero l'emploi du temps 
         public void Clear()
         {
             _time = 0;

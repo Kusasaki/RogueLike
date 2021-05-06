@@ -11,6 +11,7 @@ using Test_Roguelike.Core.Items;
 
 namespace Test_Roguelike.Interfaces
 {
+    //Permet de factoriser le code, car tous les acteurs (monstres et joueur) hériteront des propriétés et des accesseurs
     public interface IActor
     {
         string Name { get; set; }

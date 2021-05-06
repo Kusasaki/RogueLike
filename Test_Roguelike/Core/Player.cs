@@ -37,6 +37,7 @@ namespace Test_Roguelike.Core
             IsDead = false;
         }
 
+        //Verifie si le joueur possede la cle du niveau en parametre
         public bool GetKey(int Level)
         {
             if (Inventory.OfType<Key>().Any(k => k.Level == Game._mapLevel))
@@ -45,6 +46,7 @@ namespace Test_Roguelike.Core
                 return false;
         }
 
+        //Soigne le joueur de tant
         public void Heal(int value)
         {
             Health += value;
@@ -52,6 +54,7 @@ namespace Test_Roguelike.Core
                 Health = MaxHealth;
         }
 
+        //Gere la consommation des potions avec un systeme de cap( on ne pas aller au dela d'une certaine valeur
         public void Consume(Potion potion)
         {
             Heal(potion.BoostHealth);
@@ -68,14 +71,15 @@ namespace Test_Roguelike.Core
                 Resistance = 50;
             
             Speed -= potion.BoostSpeed;
-            if (Speed <= 5)
-                Speed = 5;
+            if (Speed <= 4)
+                Speed = 4;
 
             Agility += potion.BoostAgility;
             if (Agility > 40)
                 Agility = 40;
         }
 
+        //Affiche les statistiques du joueur
         public void DrawStats(RLConsole statConsole)
         {
             statConsole.Print(1, 1, $"Nom:  {Name}", Colors.Text);

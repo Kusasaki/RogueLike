@@ -32,6 +32,7 @@ namespace Test_Roguelike.Core
             get; set;
         }
 
+        //Affiche les ascenseurs
         public void Draw(RLConsole console, IMap map)
         {
             if (!map.GetCell(X, Y).IsExplored)

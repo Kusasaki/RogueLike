@@ -8,6 +8,7 @@ using RogueSharp;
 
 namespace Test_Roguelike.Interfaces
 {
+    //Permet de factoriser le code puisque les propriétés et les accesseurs sont nécessaires pour Actor et tous les items
     public interface IDrawable
     {
         RLColor Color { get; set; }

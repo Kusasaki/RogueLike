@@ -9,6 +9,8 @@ namespace Test_Roguelike.Core
 {
     class Swatch
     {
+        //Stockage des couleurs du jeu
+
         //dégradé de bleu marine
         public static RLColor PrimaryLightest = new RLColor(95, 140, 169);
         public static RLColor PrimaryLighter = new RLColor(41, 113, 159);

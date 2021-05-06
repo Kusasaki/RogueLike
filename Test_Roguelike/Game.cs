@@ -107,17 +107,18 @@ namespace Test_Roguelike
             bool didPlayerAct = false;
             RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
 
-            if (Game.Player.IsDead)
+            //Gestion de l'action du joueur 
+            if (Game.Player.IsDead) //Si le joueur meurt relance une nouvelle partie
             {
                 Player = null;
                 MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 1);
                 DungeonMap = mapGenerator.CreateMap();
                 MessageLog = new MessageLog();
                 CommandSystem = new CommandSystem();
-                _rootConsole.Title = $"RoguePépéMémé - Level 1";
+                _rootConsole.Title = $"UChronia - Level 1";
                 didPlayerAct = true;
             }
-            else if (Player.Inventory.OfType<Machine>().Any())
+            else if (Player.Inventory.OfType<Machine>().Any()) //Si le joueur a detruit la machine mesage de fin de partie
             {
                 MessageLog.Add(" ");
                 MessageLog.Add("Vous avez detruit la machine de la mort qui TUE !");
@@ -128,14 +129,14 @@ namespace Test_Roguelike
             }
             else if (CommandSystem.IsPlayerTurn)
             {
-                if (Game.Player.IsAttacking)
+                if (Player.IsAttacking) //Affichage de l'attaque
                 {
                     _renderRequired = true;
                 }
 
                 if (keyPress != null)
                 {
-                    if (Player.IsAttacking)
+                    if (Player.IsAttacking) //Gestion de l'interface d'attaque
                     {
                         if (keyPress.Key == RLKey.Number1)
                         {
@@ -148,7 +149,7 @@ namespace Test_Roguelike
                             didPlayerAct = true;
                         }
                     }
-                    if (keyPress.Key == RLKey.Up)
+                    if (keyPress.Key == RLKey.Up)//Gestion du mouvement
                     {
                         didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
                     }
@@ -168,11 +169,10 @@ namespace Test_Roguelike
                     {
                         _rootConsole.Close();
                     }
-                    else if (keyPress.Key == RLKey.Period)
+                    else if (keyPress.Key == RLKey.Period) //Gestion du changement de niveua
                     {
                         if (DungeonMap.CanMoveDownToNextLevel())
                         {
-                            
                             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, ++_mapLevel);
                             DungeonMap = mapGenerator.CreateMap();
                             MessageLog = new MessageLog();
@@ -183,14 +183,14 @@ namespace Test_Roguelike
                     }
                 }
 
-                if (didPlayerAct)
+                if (didPlayerAct) //Au tour des monstres !
                 {
                     _renderRequired = true;
                     CommandSystem.EndPlayerTurn();
                 }
                 
             }
-            else
+            else // Tour des monstres !
             {
                 CommandSystem.ActivateMonsters();
                 _renderRequired = true;
@@ -200,27 +200,22 @@ namespace Test_Roguelike
         // Event handler for RLNET's Render event
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
-            // Don't bother redrawing all of the consoles if nothing has changed.
+            // Si les consoles ont changé, on update
             if (_renderRequired)
             {
                 _mapConsole.Clear();
                 _statConsole.Clear();
                 
-
                 DungeonMap.Draw(_mapConsole, _statConsole);
                 Player.Draw(_mapConsole, DungeonMap);
 
-                // New code after Player.Draw()
                 Player.DrawStats(_statConsole);
 
-                // Blit the sub consoles to the root console in the correct locations
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
                 RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight, _rootConsole, 0, _screenHeight - _messageHeight);
                 RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight, _rootConsole, 0, 0);
                 
-
-                // Tell RLNET to draw the console that we set
                 _rootConsole.Draw();
 
                 MessageLog.Draw(_messageConsole);

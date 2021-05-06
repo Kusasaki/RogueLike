@@ -30,7 +30,7 @@ namespace Test_Roguelike.Core.Items
                     blagues.Add("Quelle est la difference entre Carla Bruni et un UML ?");
                     blagues.Add("Je suis paye pour dire ce que je pense donc mon opinion vaut quelque chose");
                     blagues.Add("Moi je m'en fous, je peux attendre, j'ai mon cafe");
-                    Category = "ENSC";
+                    Category = "ENSC Phrase de la Gazette";
                     break;
 
                 case 2: //Carambar

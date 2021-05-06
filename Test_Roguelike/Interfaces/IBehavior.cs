@@ -10,6 +10,7 @@ using Test_Roguelike.Systems;
 
 namespace Test_Roguelike.Interfaces
 {
+    //Permet de factoriser le code pour Boss et Ghost qui hériteront de act
     public interface IBehavior
     {
         bool Act(Monster monster, CommandSystem commandSystem);

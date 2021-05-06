@@ -9,15 +9,13 @@ using RogueSharp;
 namespace Test_Roguelike.Systems
 {
     
-    // Represents a queue of messages that can be added to
-    // Has a method for and drawing to an RLConsole
+    // Represente la liste des messages a afficher (systeme semblable a une file d'attente qui quand on l'actualise, affiche les derniers messages)
     public class MessageLog
     {
-        // Define the maximum number of lines to store
+        // Taille de l'affichage 
         private static readonly int _maxLines = 14;
 
-        // Use a Queue to keep track of the lines of text
-        // The first line added to the log will also be the first removed
+        // Creation de la queue
         private readonly Queue<string> _lines;
 
         public MessageLog()
@@ -25,19 +23,19 @@ namespace Test_Roguelike.Systems
             _lines = new Queue<string>();
         }
 
-        // Add a line to the MessageLog queue
+        // Ajout d'un message à la liste des message 
         public void Add(string message)
         {
             _lines.Enqueue(message);
 
-            // When exceeding the maximum number of lines remove the oldest one.
+            // Si on depasse la limite de l'affichage, les messages les plus anciens sortent de la queue
             if (_lines.Count > _maxLines)
             {
                 _lines.Dequeue();
             }
         }
 
-        // Draw each line of the MessageLog queue to the console
+        // Affiche les lignes de la queue dans la console
         public void Draw(RLConsole console)
         {
             console.Clear();
