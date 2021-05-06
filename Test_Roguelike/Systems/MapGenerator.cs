@@ -197,7 +197,7 @@ namespace Test_Roguelike.Systems
                 if (Dice.Roll("1D10") < 7)
                 {
                     // Cree entre un et deux monstres
-                    var numberOfMonsters = Dice.Roll("1D3");
+                    var numberOfMonsters = Math.Abs(Dice.Roll("1D6")-3);
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         // Trouve une case sur laquelle on peut marcher (pour eviter de creer un monstre dans un mur)
