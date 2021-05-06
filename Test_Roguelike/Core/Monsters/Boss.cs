@@ -31,7 +31,7 @@ namespace Test_Roguelike.Core.Monsters
                 case 1:
                     boss.Name = "Cleopatre";
                     boss.Inventory.Add(new Weapon("Couteau aiguise", 4, 10));
-                    boss.Inventory.Add(new Potion(10, 7, 1, 3, 0, 5));
+                    boss.Inventory.Add(new Potion(10, 7, 5, 7, 0, 5));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
@@ -40,7 +40,7 @@ namespace Test_Roguelike.Core.Monsters
                 case 2:
                     boss.Name = "Kumaragupta";
                     boss.Inventory.Add(new Weapon("Hachoir tranchant", 5, 15));
-                    boss.Inventory.Add(new Potion(12, 6, 0, 3, 2, 0));
+                    boss.Inventory.Add(new Potion(12, 6, 10, 3, 2, 0));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     break;
@@ -48,7 +48,7 @@ namespace Test_Roguelike.Core.Monsters
                 case 3:
                     boss.Name = "Moctezuma";
                     boss.Inventory.Add(new Weapon("Lance aiguisee", 7, 30));
-                    boss.Inventory.Add(new Potion(14, 6, 4, 0, 2, 0));
+                    boss.Inventory.Add(new Potion(14, 6, 6, 14, 2, 0));
                     boss.Inventory.Add(new Potion("Agility", Dice.Roll("1D5")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     break;
@@ -56,7 +56,7 @@ namespace Test_Roguelike.Core.Monsters
                 case 4:
                     boss.Name = "Catherine II";
                     boss.Inventory.Add(new Weapon("Fleuret de Combat", 9, 40));
-                    boss.Inventory.Add(new Potion(25, 0, 5, 5, 2, Dice.Roll("1D10")));
+                    boss.Inventory.Add(new Potion(25, 0, 10, 10, 2, Dice.Roll("1D10")));
                     boss.Inventory.Add(new Joke(Dice.Roll("1D4")));
                     break;
 
