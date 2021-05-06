@@ -103,15 +103,14 @@ namespace Test_Roguelike.Systems
             joke.X = 8;
             joke.Y = 8;
             _map.Items.Add(joke);
-            var mac = new Machine();
-            mac.X = 9;
-            mac.Y = 8;
-            _map.Items.Add(mac);
+            
             CreateStairs();
             PlacePlayer();
+            if(_level == 5)
+                PlaceMachine();
             PlaceBoss();
             PlaceMonsters();
-            PlaceItems();
+            PlacePotions();
             return _map;
         }
 
@@ -234,7 +233,17 @@ namespace Test_Roguelike.Systems
             _map.AddMonster(_levelBoss);
         }
 
-        private void PlaceItems()
+        private void PlaceMachine()
+        {
+            Machine machine = new Machine();
+            Random rnd = new Random();
+            var room = _map.Rooms[rnd.Next(1, _map.Rooms.Count)];
+            machine.X = room.Center.X - 1;
+            machine.Y = room.Center.Y;
+            _map.Items.Add(machine);
+        }
+
+        private void PlacePotions()
         {
             foreach (var room in _map.Rooms)
             {

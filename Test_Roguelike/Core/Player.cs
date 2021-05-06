@@ -27,13 +27,13 @@ namespace Test_Roguelike.Core
             Color = Colors.Player;
             Symbol = 'O';
             Agility = 30;
-            Speed = 15;
+            Speed = 2;
             X = 10;
             Y = 10;
             Inventory = new List<Item>();
             Inventory.Add(new Joke(3));
             Inventory.Add(new Joke(2));
-            Weapon = new Weapon("Eplucheur de Legumes", 0, 100);
+            Weapon = new Weapon("Cure Dent", 1, 1);
             IsDead = false;
         }
 

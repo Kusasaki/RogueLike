@@ -122,7 +122,7 @@ namespace Test_Roguelike
                 MessageLog.Add(" ");
                 MessageLog.Add("Vous avez detruit la machine de la mort qui TUE !");
                 MessageLog.Add("Le regne des fantomes trop serieux est termine");
-                MessageLog.Add("Place a la fête et a la boutade !");
+                MessageLog.Add("Place a la fete et a la boutade !");
                 MessageLog.Add("Vous avez gagne !!! BRAVA");
                 _renderRequired = true;
             }

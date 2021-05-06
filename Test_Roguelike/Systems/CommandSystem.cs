@@ -30,7 +30,6 @@ namespace Test_Roguelike.Systems
                 IsPlayerTurn = true;
                 if (Game.Player.Health > -5)
                     Game.SchedulingSystem.Add(Game.Player);
-                
             }
             else
             {
@@ -99,22 +98,28 @@ namespace Test_Roguelike.Systems
                 if (item is Weapon weapon)
                 {
                     Game.Player.Weapon = weapon;
+                    Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
+                    Game.DungeonMap.RemoveItem(item);
                 }
                 else if (item is Potion potion)
                 {
                     Game.Player.Consume(potion);
+                    Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
+                    Game.DungeonMap.RemoveItem(item);
                 }
                 else if (item is Machine machine && Game.Player.Inventory.OfType<Key>().Any(k => k.Level == 10))
                 {
                     machine.Destroyed = true;
                     Game.Player.Inventory.Add(item);
+                    Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
+                    Game.DungeonMap.RemoveItem(item);
                 }
-                else
+                else if (item is Key || item is Joke)
                 {
                     Game.Player.Inventory.Add(item);
+                    Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
+                    Game.DungeonMap.RemoveItem(item);
                 }
-                Game.DungeonMap.RemoveItem(item);
-                Game.MessageLog.Add("Vous avez recupere un/une" + item.ToString());
                 return true;
             }
 
@@ -236,7 +241,9 @@ namespace Test_Roguelike.Systems
         {
             int blocks = 0;
 
-            if (hits > 0)
+            if (hits == 500)
+                blocks = 0;
+            else if (hits > 0 && hits != 500)
             {
                 if (attacker is Player || attacker is Boss)
                     blocks = (int)(hits * defender.Defense / 100.0);
