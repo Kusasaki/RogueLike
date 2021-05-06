@@ -19,7 +19,7 @@ namespace Test_Roguelike.Core.Monsters
             ghost.MaxHealth = 14 + Level * Dice.Roll("1D4");
             ghost.Health = ghost.MaxHealth;
             ghost.PAttack = 1;
-            ghost.FAttack = 2 + (int)Math.Floor(Level / 2.0) * Dice.Roll("1D4");
+            ghost.FAttack = 1 + (int)Math.Floor(Level / 2.0) * Dice.Roll("1D3");
             ghost.Defense = 2 + (int)Math.Ceiling(Level / 2.0) * Dice.Roll("1D4");
             ghost.Resistance = 0;
             ghost.Agility = 5 + (int)Math.Ceiling(Level/2.0) * Dice.Roll("1D6");
